@@ -1,5 +1,6 @@
 const functions = require('firebase-functions')
 const cors = require('cors')({origin: true})
+const puppeteer = require('puppeteer')
 const cheerio = require('cheerio')
 const getUrls = require('get-urls')
 const fetch = require('node-fetch')
@@ -14,6 +15,9 @@ exports.scrape = functions.https.onRequest((request, response) => {
     }
     if (body.url) {
       data.url = (await getSiteMetatags(body.url)) ?? {}
+    }
+    if (body.ig) {
+      data.ig = (await getLatestInstagramImageUrl(body.ig)) ?? null
     }
 
     response.json(data)
@@ -47,3 +51,20 @@ const getSitesMetatags = text => {
   return Promise.all(requests)
 }
 
+const getLatestInstagramImageUrl = async username => {
+  const browser = await puppeteer.launch({headless: true})
+  const page = await browser.newPage()
+  await page.goto(`https://instagram.com/${username}`)
+  await page.waitForSelector('img', {
+    visible: true,
+  })
+
+  const latestImageUrl = await page.evaluate(() => {
+    const imageEl = document.querySelector('article img')
+    return imageEl.src
+  })
+
+  await browser.close()
+
+  return latestImageUrl
+}

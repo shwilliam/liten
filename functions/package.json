@@ -10,7 +10,7 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "10"
+    "node": "8"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
@@ -19,7 +19,7 @@
     "firebase-functions": "^3.6.1",
     "get-urls": "^9.2.1",
     "node-fetch": "^2.6.0",
-    "puppeteer": "^5.0.0",
+    "puppeteer": "^1.19.0",
     "shortid": "^2.2.15"
   },
   "devDependencies": {

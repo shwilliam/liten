@@ -36,7 +36,7 @@ exports.scrape = functions
         response.json(data)
       } catch (error) {
         console.error(error)
-        response.status(500)
+        response.json({error})
       }
     })
   })
@@ -79,31 +79,42 @@ const getSitesMetatags = text => {
 }
 
 const getLatestInstagramImageUrl = async username => {
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  })
+  let latestImageUrl
+
   try {
-    const browser = await puppeteer.launch({headless: true})
     const page = await browser.newPage()
     await page.goto(`https://instagram.com/${username}`)
-    await page.waitForSelector('img', {
+    await page.waitForSelector('main article a img', {
       visible: true,
     })
 
-    const latestImageUrl = await page.evaluate(() => {
-      const imageEl = document.querySelector('article img')
+    latestImageUrl = await page.evaluate(() => {
+      const imageEl = document.querySelector('main article a img')
       return imageEl.src
     })
-
-    await browser.close()
-
-    return latestImageUrl
   } catch (error) {
     console.error(error)
     return null
+  } finally {
+    await browser.close()
   }
+
+  return latestImageUrl
 }
 
 const getTweetPreview = async url => {
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  })
+
+  let preview
+  let embed
   try {
-    const browser = await puppeteer.launch({headless: true})
     const theme = 'light' // light | dark
     const page = await browser.newPage()
     await page.goto(
@@ -113,20 +124,19 @@ const getTweetPreview = async url => {
     await page.waitForSelector('.EmbedCode-code', {
       visible: true,
     })
-    const embed =
+    embed =
       (await page.evaluate(() => {
         const embedEl = document.querySelector('.EmbedCode-code')
         return embedEl.innerText
-      })) ?? null
+      })) || null
 
     const iframeUrl = await page.evaluate(() => {
       const iframeEl = document.querySelector('iframe')
-      return iframeEl?.src
+      return iframeEl.src || null
     })
 
     const previewImageBuffer = await getTweetPreviewImage(browser, iframeUrl)
 
-    let preview = null
     if (previewImageBuffer) {
       const filename = shortid.generate()
       const file = await saveMediaToBucket(
@@ -135,14 +145,14 @@ const getTweetPreview = async url => {
       )
       preview = file.metadata.mediaLink
     }
-
-    await browser.close()
-
-    return {embed, preview}
   } catch (error) {
     console.error(error)
     return null
+  } finally {
+    await browser.close()
   }
+
+  return {embed, preview}
 }
 
 const getTweetPreviewImage = async (browser, url) => {
@@ -154,7 +164,7 @@ const getTweetPreviewImage = async (browser, url) => {
       timeout: 8000,
     })
     await page.waitFor(1000) // fade in transition
-    await page.setViewport({width: 550, height: 380}) // fit generated preview
+    await page.setViewport({width: 550, height: 380}) // TODO: fit generated preview
     return await page.screenshot()
   } catch (error) {
     console.error(error)

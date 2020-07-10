@@ -1,0 +1,129 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding: 10em 0 0 0;
+}
+
+html,
+body {
+  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  height: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  color: var(--color-text);
+  background-color: var(--color-sheet);
+}
+
+body {
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+main {
+  margin: 0 auto;
+  padding-right: var(--space-large);
+  padding-left: var(--space-large);
+  padding-top: 2em;
+  padding-top: max(2em, 5vmin);
+}
+
+:focus {
+  outline-offset: 0.15em;
+  outline: var(--color-accent) solid 0.3em;
+}
+
+::selection,
+::-moz-selection {
+  color: var(--color-text);
+  background-color: var(--color-highlight);
+}
+
+ol,
+ul {
+  list-style: none;
+  list-style-type: '👉 ';
+  padding: 0;
+}
+
+[disabled] {
+  cursor: not-allowed;
+}
+
+img,
+video,
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+input,
+textarea,
+button {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0.2rem;
+  background-color: transparent;
+}
+
+input,
+label,
+[type='submit'] {
+  display: block;
+}
+
+textarea {
+  resize: vertcal;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* SVG fill falls back to text color */
+svg:not([fill]) {
+  fill: currentColor;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.25;
+}
+
+ul,
+ol {
+  padding: 0 0 0 var(--space-medium);
+  margin: 0;
+}
+
+hr {
+  width: 100%;
+  height: 0.2rem;
+  display: block;
+  clear: both;
+  margin: var(--space-xx-large) auto;
+  padding: 0;
+  border: 0;
+  background: linear-gradient(
+    to right,
+    var(--color-peach) 0%,
+    var(--color-azure) 100%
+  );
+}

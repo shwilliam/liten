@@ -10,7 +10,7 @@ html {
 
 html,
 body {
-  font-size: 15px;
+  font-size: 16px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   height: 100%;
@@ -47,10 +47,11 @@ main {
 }
 
 ol,
-ul {
+ul,
+li {
   list-style: none;
-  list-style-type: '👉 ';
   padding: 0;
+  margin: 0;
 }
 
 [disabled] {
@@ -66,12 +67,47 @@ svg {
 }
 
 input,
+label {
+  margin: var(--space-small) 0;
+}
+
+button {
+  margin: var(--space-medium) 0;
+}
+
+input,
 textarea,
 button {
+  font: inherit;
   border-width: 1px;
   border-style: solid;
   border-radius: 0.2rem;
-  background-color: transparent;
+  background-color: var(--color-white);
+}
+
+input,
+textarea {
+  transition: box-shadow 0.15s ease-in-out;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+input:focus,
+input:hover,
+textarea:focus,
+textarea:hover,
+button:focus,
+button:active,
+button:hover {
+  border-color: #a4d2ff;
+}
+
+input:focus,
+textarea:focus,
+button:focus,
+button:active {
+  outline: none;
+  box-shadow: 0 0 6px rgba(27, 106, 201, 0.5);
 }
 
 input,
@@ -81,7 +117,8 @@ label,
 }
 
 textarea {
-  resize: vertcal;
+  resize: vertical;
+  min-height: 2rem;
 }
 
 button {
@@ -107,10 +144,9 @@ h6 {
   line-height: 1.25;
 }
 
-ul,
-ol {
-  padding: 0 0 0 var(--space-medium);
-  margin: 0;
+a,
+a:visited {
+  color: currentColor;
 }
 
 hr {

@@ -20,11 +20,8 @@ exports.scrape = functions
         const body = JSON.parse(request.body)
         const data = {}
 
-        if (body.text) {
-          data.text = await getSitesMetatags(body.text)
-        }
         if (body.url) {
-          data.url = await getSiteMetatags(body.url)
+          data.url = await getSitesMetatags(body.url)
         }
         if (body.ig) {
           data.ig = await getLatestInstagramImageUrl(body.ig)

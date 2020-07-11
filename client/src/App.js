@@ -11,12 +11,11 @@ export const App = () => {
     setError()
     setLoading(true)
 
-    const {input_url, input_text, input_tweet} = e.currentTarget.elements
+    const {input_url, input_tweet} = e.currentTarget.elements
 
     try {
       const body = JSON.stringify({
         url: input_url.value,
-        text: input_text.value,
         tweet: input_tweet.value,
       })
 
@@ -42,16 +41,13 @@ export const App = () => {
         <h2 className="hide-screens">Get socials form</h2>
 
         <form onSubmit={handleSubmit}>
-          <label htmlFor="input_url">Site URL:</label>
-          <input
+          <label htmlFor="input_url">URL(s):</label>
+          <textarea
             name="input_url"
             id="input_url"
-            type="url"
-            placeholder="https://shwilliam.com"
-          />
-
-          <label htmlFor="input_text">URL text:</label>
-          <input name="input_text" id="input_text" type="text" />
+            rows="3"
+            placeholder="https://github.com/shwilliam"
+          ></textarea>
 
           <label htmlFor="input_tweet">Tweet URL:</label>
           <input
@@ -76,7 +72,7 @@ export const App = () => {
 
         {socials && (
           <div className="socials">
-            {(socials.url || socials.text?.length > 0) && (
+            {socials.url?.length > 0 && (
               <section>
                 <table>
                   <thead>
@@ -94,22 +90,13 @@ export const App = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {socials.url && (
-                      <tr>
-                        <td>{socials.url.url}</td>
-                        <td>{socials.url.title}</td>
-                        <td>{socials.url.favicon}</td>
-                        <td>{socials.url.description}</td>
-                        <td>{socials.url.image}</td>
-                      </tr>
-                    )}
-                    {socials.text?.map(socials => (
-                      <tr key={`socials-text-${socials.url}`}>
-                        <td>{socials.url}</td>
-                        <td>{socials.title}</td>
-                        <td>{socials.favicon}</td>
-                        <td>{socials.description}</td>
-                        <td>{socials.image}</td>
+                    {socials.url?.map(site => (
+                      <tr key={`socials-url-${site.url}`}>
+                        <td>{site.url}</td>
+                        <td>{site.title}</td>
+                        <td>{site.favicon}</td>
+                        <td>{site.description}</td>
+                        <td>{site.image}</td>
                       </tr>
                     ))}
                   </tbody>

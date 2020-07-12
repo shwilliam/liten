@@ -9,6 +9,11 @@ const cheerio = require('cheerio')
 const getUrls = require('get-urls')
 const shortid = require('shortid')
 
+const DEFAULT_TWEET_DIMENSIONS = {
+  width: 550,
+  height: 173, // one-line tweet preview height
+}
+
 exports.scrape = functions
   .runWith({
     timeoutSeconds: 120,
@@ -158,10 +163,29 @@ const getTweetPreviewImage = async (browser, url) => {
     await page.goto(url)
     await page.waitForSelector('#app', {
       visible: true,
-      timeout: 8000,
+      timeout: 12000,
     })
     await page.waitFor(1000) // fade in transition
-    await page.setViewport({width: 550, height: 380}) // TODO: fit generated preview
+    const tweetPreviewDimensions = await page.evaluate(() => {
+      const tweetPreviewContainerEl = document.getElementById('app')
+      const tweetPreviewEl = tweetPreviewContainerEl.firstChild
+      try {
+        const tweetPreviewDimensions = tweetPreviewEl.getBoundingClientRect()
+        return {
+          width: tweetPreviewDimensions.width,
+          height: tweetPreviewDimensions.height,
+        }
+      } catch (error) {
+        return {
+          width: DEFAULT_TWEET_DIMENSIONS.width,
+          height: DEFAULT_TWEET_DIMENSIONS.height,
+        }
+      }
+    })
+    await page.setViewport({
+      width: tweetPreviewDimensions.width,
+      height: tweetPreviewDimensions.height,
+    })
     return await page.screenshot()
   } catch (error) {
     console.error(error)

@@ -1,4 +1,7 @@
-export type User = {
+export type Link = {
   id: number
-  name: string
+  slug: string
+  target: string
+  createdAt: string
+  author: string
 }

@@ -17,23 +17,19 @@ const Layout = ({children, title = 'liten'}: Props) => (
     <header>
       <nav>
         <Link href="/">
-          <a>Home</a>
+          <a>home</a>
         </Link>{' '}
         |{' '}
         <Link href="/about">
-          <a>About</a>
+          <a>about</a>
         </Link>{' '}
-        |{' '}
-        <Link href="/users">
-          <a>Users List</a>
-        </Link>{' '}
-        | <a href="/api/users">Users API</a>
+        | | <a href="/api/links">all</a>
       </nav>
     </header>
     {children}
     <footer>
       <hr />
-      <span>I'm here to stay (Footer)</span>
+      <span>TODO</span>
     </footer>
   </div>
 )

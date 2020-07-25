@@ -4,3 +4,8 @@
 /* purgecss end ignore */
 
 @tailwind utilities;
+
+[disabled] {
+  cursor: not-allowed;
+  opacity: 0.8;
+}

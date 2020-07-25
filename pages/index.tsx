@@ -1,16 +1,21 @@
-import Link from 'next/link'
+import Hero from '../components/hero'
+import NewLinkForm from '../components/new-link-form'
+import Layout from '../components/site-layout'
 
-import Layout from '../components/Layout'
+const IndexPage = () => {
+  return (
+    <Layout title="home ~ liten">
+      <h1 className="sr-only">liten</h1>
 
-const IndexPage = () => (
-  <Layout title="home ~ liten">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
+      <Hero />
+
+      <div className="bg-orange-600 py-8 pb-10 sm:py-10 sm:pb-12">
+        <div className="container px-4 sm:px-8 lg:my-8 xl:px-20 mx-auto">
+          <NewLinkForm />
+        </div>
+      </div>
+    </Layout>
+  )
+}
 
 export default IndexPage

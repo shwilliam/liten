@@ -11,7 +11,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       data: {
         slug: slug,
         target: target,
-        author: 'TODO',
       },
     })
 

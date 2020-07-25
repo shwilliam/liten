@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import {useMutation} from 'react-query'
 
+import {Link} from '../interfaces'
 import LinkList from './link-list'
 
 const createLinkRequest = async (data: any) => {
@@ -19,12 +20,12 @@ const createLinkRequest = async (data: any) => {
 const useCreateLink = () => useMutation(createLinkRequest)
 
 const NewLinkForm = () => {
-  const [createdLinks, setCreatedLinks] = useState([])
+  const [createdLinks, setCreatedLinks] = useState<Link[] | []>([])
   const [slug, setSlug] = useState('')
   const [target, setTarget] = useState('')
   const handleSlugChange = (e: any) => setSlug(e.target.value)
   const handleTargetChange = (e: any) => setTarget(e.target.value)
-  const [createLink, {isLoading, isError}] = useCreateLink()
+  const [createLink, {isLoading}] = useCreateLink()
 
   const handleLinkSubmit = async (event: any) => {
     event.preventDefault()
@@ -39,7 +40,7 @@ const NewLinkForm = () => {
     const link = await createLink({slug: slugValue, target: targetValue})
     setSlug('')
     setTarget('')
-    setCreatedLinks((s: any) => [link, ...s])
+    setCreatedLinks(s => [link, ...s])
   }
 
   return (

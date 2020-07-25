@@ -2,7 +2,7 @@ import {GetServerSideProps} from 'next'
 import Head from 'next/head'
 import {useMount} from 'react-use'
 
-import {Link} from '../interfaces'
+import {Link} from '../../interfaces'
 
 type Props = {
   link: Link

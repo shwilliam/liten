@@ -1,3 +1,4 @@
 # Prisma Migrate lockfile v1
 
 20200723202636-create-links
+20200725005529-add-links-meta-fields

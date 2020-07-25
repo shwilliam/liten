@@ -49,7 +49,10 @@ type LinkEditFormAction = {
   payload: any
 }
 
-const linkEditFormReducer = (form: LinkMetaTags, action: LinkEditFormAction) => {
+const linkEditFormReducer = (
+  form: LinkMetaTags,
+  action: LinkEditFormAction,
+) => {
   switch (action.type) {
     case 'INPUT':
       return {...form, [action.payload.name]: action.payload.value}
@@ -57,6 +60,7 @@ const linkEditFormReducer = (form: LinkMetaTags, action: LinkEditFormAction) => 
       return form
   }
 }
+
 const defaultLinkData = {
   title: '', // <50 chars
   desc: '', // <160 chars
@@ -82,8 +86,40 @@ const LinkEditPage = ({link, slug}: Props) => {
     ...defaultLinkData,
     ...link,
   })
+
   const handleInput = (e: SyntheticEvent) =>
     dispatch({type: 'INPUT', payload: e.target})
+
+  const handleFileInput = async (e: any) => {
+    const file = e.target.files[0]
+
+    if (!file) return
+    e.persist()
+
+    // 1mb
+    if (file.size > 1048576) {
+      alert('Image exceeds max file size of 1mb')
+      return
+    }
+
+    const formData = new FormData()
+    formData.append('image', file)
+
+    const response = await fetch('/api/image', {
+      method: 'POST',
+      body: formData,
+    })
+    const {image} = await response.json()
+
+    dispatch({
+      type: 'INPUT',
+      payload: {
+        name: e.target.name,
+        value: image.secure_url,
+      },
+    })
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     await updateLink({...form, slug})
@@ -171,13 +207,13 @@ const LinkEditPage = ({link, slug}: Props) => {
                 Facebook image
               </label>
               <input
-                value={form.og_img_src}
-                onChange={handleInput}
+                onChange={handleFileInput}
                 className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
                 name="og_img_src"
                 id="og_img_src"
-                type="url"
-                placeholder="Image"
+                type="file"
+                accept="image/png, image/jpeg"
+                multiple={false}
               />
 
               <label className="sr-only" htmlFor="og_site">
@@ -230,13 +266,13 @@ const LinkEditPage = ({link, slug}: Props) => {
                 Twitter image
               </label>
               <input
-                value={form.twitter_img_src}
-                onChange={handleInput}
+                onChange={handleFileInput}
                 className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
                 name="twitter_img_src"
                 id="twitter_img_src"
-                type="url"
-                placeholder="Image"
+                type="file"
+                accept="image/png, image/jpeg"
+                multiple={false}
               />
 
               <label className="sr-only" htmlFor="twitter_img_alt">
@@ -316,13 +352,13 @@ const LinkEditPage = ({link, slug}: Props) => {
               Google image
             </label>
             <input
-              value={form.google_img_src}
-              onChange={handleInput}
+              onChange={handleFileInput}
               className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
               name="google_img_src"
               id="google_img_src"
-              type="url"
-              placeholder="Image"
+              type="file"
+              accept="image/png, image/jpeg"
+              multiple={false}
             />
 
             <button

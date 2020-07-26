@@ -14,14 +14,14 @@ const Layout = ({children, title = 'liten'}: Props) => {
   const router = useRouter()
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 min-h-screen">
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
-      <header>
+      <header className="sticky top-0 bg-gray-100 z-50">
         <nav className="flex items-center justify-between flex-wrap p-6 container px-4 sm:px-8 xl:px-20 mx-auto">
           <div className="flex items-center flex-no-shrink mr-6">
             <Link href="/">

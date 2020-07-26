@@ -70,8 +70,6 @@ const LinkPage = ({link}: Props) => {
   )
 }
 
-export default LinkPage
-
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const slug = ctx?.params?.slug
   const linkRes = await fetch(`${process.env.BASE_URL}/api/links/${slug}`)
@@ -80,3 +78,5 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 
   return {props: {link}}
 }
+
+export default LinkPage

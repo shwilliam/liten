@@ -55,7 +55,7 @@ const NewLinkForm = () => {
 
   return (
     <>
-      <h2 className="font-semibold text-3xl tracking-tight text-white my-2">
+      <h2 className="font-semibold text-4xl lg:text-5xl tracking-tight text-white my-2">
         Try it out!
       </h2>
       <form

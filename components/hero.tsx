@@ -8,9 +8,10 @@ const Hero = () => (
           <p className="font-bold text-4xl md:text-6xl max-w-xl text-gray-900 leading-tight">
             Personalized short links
           </p>
-          <hr className="w-12 h-1 bg-orange-500 rounded-full mt-8" />
+          <hr className="w-12 h-1 bg-orange-600 rounded-full mt-8" />
           <p className="text-gray-800 text-base leading-relaxed mt-8 font-semibold">
-            Make your brand stand out with unique links and customized previews
+            Make your brand stand out with unique URLs and customized link
+            previews to impress on all social platforms
           </p>
         </div>
 

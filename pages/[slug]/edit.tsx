@@ -1,29 +1,29 @@
+import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@reach/tabs'
 import {GetServerSideProps} from 'next'
 import {FormEvent, SyntheticEvent, useReducer} from 'react'
-import {useMutation} from 'react-query'
 
+import {
+  GooglePreview,
+  OGPreview,
+  TwitterPreview,
+} from '../../components/share-previews'
 import Layout from '../../components/site-layout'
+import {useUpdateLink} from '../../hooks'
 import {Link, LinkMeta} from '../../interfaces'
+import {removeURLScheme, removeWebHostString} from '../../utils'
+
+import {
+  inputFirstWrapperStyles,
+  inputStyles,
+  inputWrapperStyles,
+  labelStyles,
+  tabStyles,
+} from './index.styles'
 
 type Props = {
   link: Link
   slug: string
 }
-
-const updateLinkRequest = async (data: any) => {
-  const response = await fetch('/api/links/_edit', {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  const responseJSON = await response.json()
-
-  return responseJSON.link
-}
-
-const useUpdateLink = () => useMutation(updateLinkRequest)
 
 type LinkEditFormAction = {
   type: string
@@ -107,252 +107,327 @@ const LinkEditPage = ({link, slug}: Props) => {
     <Layout title={`edit ${slug} ~ liten`}>
       <div className="py-8 pb-10 sm:py-10 sm:pb-12">
         <div className="container px-4 sm:px-8 lg:my-8 xl:px-20 mx-auto">
-          <h1 className="font-bold text-4xl md:text-6xl max-w-xl text-gray-900 leading-tight">
+          <a
+            className="block md:text-center mt-3 md:mt-8 text-gray-500 hover:text-gray-900 leading-tight"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={link.target}
+          >
+            {removeWebHostString(removeURLScheme(link.target))}
+          </a>
+          <h1 className="font-bold text-4xl md:text-6xl lg:text-center mb-3 md:mb-8 text-gray-900 leading-tight">
             Edit /{slug}
           </h1>
 
-          <form
-            className="flex justify-between flex-wrap"
-            onSubmit={handleSubmit}
-          >
-            <p className="font-semibold text-xl tracking-tight mt-6">General</p>
-            <div className="sm:flex w-full">
-              <label className="sr-only" htmlFor="title">
-                Title
-              </label>
-              <input
-                value={form.title}
-                onChange={handleInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="title"
-                id="title"
-                type="text"
-                placeholder="Title"
-                maxLength={50}
-              />
+          <form onSubmit={handleSubmit}>
+            <Tabs>
+              <TabList className="-mb-px flex md:justify-center overflow-scroll">
+                <Tab className={tabStyles}>General</Tab>
+                <Tab className={tabStyles}>Twitter</Tab>
+                <Tab className={tabStyles}>Facebook</Tab>
+                <Tab className={tabStyles}>Google</Tab>
+              </TabList>
+              <TabPanels className="max-w-4xl mx-auto">
+                <TabPanel>
+                  <p className="sr-only">General</p>
 
-              <label className="sr-only" htmlFor="desc">
-                Description
-              </label>
-              <input
-                value={form.desc}
-                onChange={handleInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="desc"
-                id="desc"
-                type="text"
-                placeholder="Description"
-                maxLength={160}
-              />
+                  <OGPreview title={form.title} desc={form.desc} />
+
+                  <div className="sm:flex w-full">
+                    <div className={inputFirstWrapperStyles}>
+                      <label className={labelStyles} htmlFor="title">
+                        Title
+                      </label>
+                      <input
+                        value={form.title}
+                        onChange={handleInput}
+                        className={inputStyles}
+                        name="title"
+                        id="title"
+                        type="text"
+                        placeholder="Awesome link"
+                        maxLength={50}
+                      />
+                    </div>
+
+                    <div className={inputWrapperStyles}>
+                      <label className={labelStyles} htmlFor="desc">
+                        Description
+                      </label>
+                      <input
+                        value={form.desc}
+                        onChange={handleInput}
+                        className={inputStyles}
+                        name="desc"
+                        id="desc"
+                        type="text"
+                        placeholder="An awesome place on the internet"
+                        maxLength={160}
+                      />
+                    </div>
+                  </div>
+                </TabPanel>
+                <TabPanel>
+                  <p className="sr-only">Twitter</p>
+
+                  <TwitterPreview
+                    img={form.twitter_img_src}
+                    title={form.twitter_title}
+                    desc={form.twitter_desc}
+                  />
+
+                  <div className="sm:flex w-full">
+                    <div className={inputFirstWrapperStyles}>
+                      <label className={labelStyles} htmlFor="twitter_title">
+                        Title
+                      </label>
+                      <input
+                        value={form.twitter_title}
+                        onChange={handleInput}
+                        className={inputStyles}
+                        name="twitter_title"
+                        id="twitter_title"
+                        type="text"
+                        placeholder="Awesome link"
+                        maxLength={50}
+                      />
+                    </div>
+
+                    <div className={inputWrapperStyles}>
+                      <label className={labelStyles} htmlFor="twitter_desc">
+                        Description
+                      </label>
+                      <input
+                        value={form.twitter_desc}
+                        onChange={handleInput}
+                        className={inputStyles}
+                        name="twitter_desc"
+                        id="twitter_desc"
+                        type="text"
+                        placeholder="An awesome place on the internet"
+                        maxLength={200}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="sm:flex w-full">
+                    <div className={inputFirstWrapperStyles}>
+                      <label className={labelStyles} htmlFor="twitter_img_src">
+                        Image
+                      </label>
+                      <input
+                        onChange={handleFileInput}
+                        className={inputStyles}
+                        name="twitter_img_src"
+                        id="twitter_img_src"
+                        type="file"
+                        accept="image/png, image/jpeg"
+                        multiple={false}
+                      />
+                    </div>
+
+                    <div className={inputWrapperStyles}>
+                      <label className={labelStyles} htmlFor="twitter_img_alt">
+                        Image alt
+                      </label>
+                      <input
+                        value={form.twitter_img_alt}
+                        onChange={handleInput}
+                        className={inputStyles}
+                        name="twitter_img_alt"
+                        id="twitter_img_alt"
+                        type="text"
+                        placeholder="A flower"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="sm:flex w-full">
+                    <div className={inputFirstWrapperStyles}>
+                      <label className={labelStyles} htmlFor="twitter_site_acc">
+                        Twitter site account
+                      </label>
+                      <input
+                        value={form.twitter_site_acc}
+                        onChange={handleInput}
+                        className={inputStyles}
+                        name="twitter_site_acc"
+                        id="twitter_site_acc"
+                        type="text"
+                        placeholder="@reddit"
+                      />
+                    </div>
+
+                    <div className={inputWrapperStyles}>
+                      <label
+                        className={labelStyles}
+                        htmlFor="twitter_author_acc"
+                      >
+                        Twitter author account
+                      </label>
+                      <input
+                        value={form.twitter_author_acc}
+                        onChange={handleInput}
+                        className={inputStyles}
+                        name="twitter_author_acc"
+                        id="twitter_author_acc"
+                        type="text"
+                        placeholder="@shwilliam"
+                      />
+                    </div>
+                  </div>
+                </TabPanel>
+                <TabPanel>
+                  <p className="sr-only">Facebook</p>
+
+                  <OGPreview
+                    img={form.og_img_src}
+                    title={form.og_title}
+                    desc={form.og_desc}
+                  />
+
+                  <div className="sm:flex w-full">
+                    <div className={inputFirstWrapperStyles}>
+                      <label className={labelStyles} htmlFor="og_title">
+                        Title
+                      </label>
+                      <input
+                        value={form.og_title}
+                        onChange={handleInput}
+                        className={inputStyles}
+                        name="og_title"
+                        id="og_title"
+                        type="text"
+                        placeholder="Awesome link"
+                        maxLength={50}
+                      />
+                    </div>
+
+                    <div className={inputWrapperStyles}>
+                      <label className={labelStyles} htmlFor="og_desc">
+                        Description
+                      </label>
+                      <input
+                        value={form.og_desc}
+                        onChange={handleInput}
+                        className={inputStyles}
+                        name="og_desc"
+                        id="og_desc"
+                        type="text"
+                        placeholder="An awesome place on the internet"
+                        maxLength={160}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="sm:flex w-full">
+                    <div className={inputFirstWrapperStyles}>
+                      <label className={labelStyles} htmlFor="og_site">
+                        Site name
+                      </label>
+                      <input
+                        value={form.og_site}
+                        onChange={handleInput}
+                        className={inputStyles}
+                        name="og_site"
+                        id="og_site"
+                        type="text"
+                        placeholder="Awesome site"
+                      />
+                    </div>
+
+                    <div className={inputWrapperStyles}>
+                      <label className={labelStyles} htmlFor="og_img_src">
+                        Image
+                      </label>
+                      <input
+                        onChange={handleFileInput}
+                        className={inputStyles}
+                        name="og_img_src"
+                        id="og_img_src"
+                        type="file"
+                        accept="image/png, image/jpeg"
+                        multiple={false}
+                      />
+                    </div>
+                  </div>
+                </TabPanel>
+                <TabPanel>
+                  <p className="sr-only">Google</p>
+
+                  <GooglePreview
+                    img={form.google_img_src}
+                    title={form.google_title}
+                    desc={form.google_desc}
+                  />
+
+                  <div className="sm:flex w-full">
+                    <div className={inputFirstWrapperStyles}>
+                      <label className={labelStyles} htmlFor="google_title">
+                        Title
+                      </label>
+                      <input
+                        value={form.google_title}
+                        onChange={handleInput}
+                        className={inputStyles}
+                        name="google_title"
+                        id="google_title"
+                        type="text"
+                        placeholder="Awesome link"
+                        maxLength={50}
+                      />
+                    </div>
+
+                    <div className={inputWrapperStyles}>
+                      <label className={labelStyles} htmlFor="google_desc">
+                        Description
+                      </label>
+                      <input
+                        value={form.google_desc}
+                        onChange={handleInput}
+                        className={inputStyles}
+                        name="google_desc"
+                        id="google_desc"
+                        type="text"
+                        placeholder="An awesome place on the internet"
+                        maxLength={160}
+                      />
+                    </div>
+                  </div>
+
+                  <div className={inputWrapperStyles}>
+                    <label className={labelStyles} htmlFor="google_img_src">
+                      Image
+                    </label>
+                    <input
+                      onChange={handleFileInput}
+                      className={inputStyles}
+                      name="google_img_src"
+                      id="google_img_src"
+                      type="file"
+                      accept="image/png, image/jpeg"
+                      multiple={false}
+                    />
+                  </div>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+
+            <div className="flex justify-end max-w-4xl mx-auto">
+              <button
+                disabled={isLoading}
+                className="block w-full lg:w-auto flex-shrink-0 px-6 py-2 my-1 border rounded bg-orange-600 text-white border-orange-600 hover:opacity-75 mt-12"
+                type="submit"
+              >
+                Save
+              </button>
             </div>
-
-            <p className="font-semibold text-xl tracking-tight mt-6">
-              Facebook
-            </p>
-            <div className="sm:flex w-full">
-              <label className="sr-only" htmlFor="og_title">
-                Facebook title
-              </label>
-              <input
-                value={form.og_title}
-                onChange={handleInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="og_title"
-                id="og_title"
-                type="text"
-                placeholder="Title"
-                maxLength={50}
-              />
-
-              <label className="sr-only" htmlFor="og_desc">
-                Facebook description
-              </label>
-              <input
-                value={form.og_desc}
-                onChange={handleInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="og_desc"
-                id="og_desc"
-                type="text"
-                placeholder="Description"
-                maxLength={160}
-              />
-            </div>
-
-            <div className="sm:flex w-full">
-              <label className="sr-only" htmlFor="og_img_src">
-                Facebook image
-              </label>
-              <input
-                onChange={handleFileInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="og_img_src"
-                id="og_img_src"
-                type="file"
-                accept="image/png, image/jpeg"
-                multiple={false}
-              />
-
-              <label className="sr-only" htmlFor="og_site">
-                Facebook site name
-              </label>
-              <input
-                value={form.og_site}
-                onChange={handleInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="og_site"
-                id="og_site"
-                type="text"
-                placeholder="Site name"
-              />
-            </div>
-
-            <p className="font-semibold text-xl tracking-tight mt-6">Twitter</p>
-            <div className="sm:flex w-full">
-              <label className="sr-only" htmlFor="twitter_title">
-                Twitter title
-              </label>
-              <input
-                value={form.twitter_title}
-                onChange={handleInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="twitter_title"
-                id="twitter_title"
-                type="text"
-                placeholder="Title"
-                maxLength={50}
-              />
-
-              <label className="sr-only" htmlFor="twitter_desc">
-                Twitter description
-              </label>
-              <input
-                value={form.twitter_desc}
-                onChange={handleInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="twitter_desc"
-                id="twitter_desc"
-                type="text"
-                placeholder="Description"
-                maxLength={200}
-              />
-            </div>
-
-            <div className="sm:flex w-full">
-              <label className="sr-only" htmlFor="twitter_img_src">
-                Twitter image
-              </label>
-              <input
-                onChange={handleFileInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="twitter_img_src"
-                id="twitter_img_src"
-                type="file"
-                accept="image/png, image/jpeg"
-                multiple={false}
-              />
-
-              <label className="sr-only" htmlFor="twitter_img_alt">
-                Twitter image alt
-              </label>
-              <input
-                value={form.twitter_img_alt}
-                onChange={handleInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="twitter_img_alt"
-                id="twitter_img_alt"
-                type="text"
-                placeholder="Image alt"
-              />
-            </div>
-
-            <div className="sm:flex w-full">
-              <label className="sr-only" htmlFor="twitter_site_acc">
-                Twitter site account
-              </label>
-              <input
-                value={form.twitter_site_acc}
-                onChange={handleInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="twitter_site_acc"
-                id="twitter_site_acc"
-                type="text"
-                placeholder="Site account"
-              />
-
-              <label className="sr-only" htmlFor="twitter_author_acc">
-                Twitter author account
-              </label>
-              <input
-                value={form.twitter_author_acc}
-                onChange={handleInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="twitter_author_acc"
-                id="twitter_author_acc"
-                type="text"
-                placeholder="Author account"
-              />
-            </div>
-
-            <p className="font-semibold text-xl tracking-tight mt-6">Google</p>
-            <div className="sm:flex w-full">
-              <label className="sr-only" htmlFor="google_title">
-                Google title
-              </label>
-              <input
-                value={form.google_title}
-                onChange={handleInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="google_title"
-                id="google_title"
-                type="text"
-                placeholder="Title"
-                maxLength={50}
-              />
-
-              <label className="sr-only" htmlFor="google_desc">
-                Google description
-              </label>
-              <input
-                value={form.google_desc}
-                onChange={handleInput}
-                className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-                name="google_desc"
-                id="google_desc"
-                type="text"
-                placeholder="Description"
-                maxLength={160}
-              />
-            </div>
-
-            <label className="sr-only" htmlFor="google_img_src">
-              Google image
-            </label>
-            <input
-              onChange={handleFileInput}
-              className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-              name="google_img_src"
-              id="google_img_src"
-              type="file"
-              accept="image/png, image/jpeg"
-              multiple={false}
-            />
-
-            <button
-              disabled={isLoading}
-              className="block w-full lg:w-auto flex-shrink-0 px-3 py-2 my-1 border rounded bg-orange-700 text-white border-orange-700 hover:opacity-75 mt-6"
-              type="submit"
-            >
-              Save
-            </button>
           </form>
         </div>
       </div>
     </Layout>
   )
 }
-
-export default LinkEditPage
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const slug = ctx?.params?.slug
@@ -362,3 +437,5 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 
   return {props: {link, slug}}
 }
+
+export default LinkEditPage

@@ -1,5 +1,6 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useMutation} from 'react-query'
+import {useLocalStorage} from 'react-use'
 
 import {Link} from '../interfaces'
 import LinkList from './link-list'
@@ -20,7 +21,12 @@ const createLinkRequest = async (data: any) => {
 const useCreateLink = () => useMutation(createLinkRequest)
 
 const NewLinkForm = () => {
-  const [createdLinks, setCreatedLinks] = useState<Link[] | []>([])
+  const [localCreatedLinks, setLocalCreatedLinks] = useLocalStorage(
+    'created_links',
+  )
+  const [createdLinks, setCreatedLinks] = useState<Link[] | []>(
+    localCreatedLinks ? JSON.parse(localCreatedLinks as string) : [],
+  )
   const [slug, setSlug] = useState('')
   const [target, setTarget] = useState('')
   const handleSlugChange = (e: any) => setSlug(e.target.value)
@@ -42,6 +48,10 @@ const NewLinkForm = () => {
     setTarget('')
     setCreatedLinks(s => [link, ...s])
   }
+
+  useEffect(() => {
+    setLocalCreatedLinks(JSON.stringify(createdLinks))
+  })
 
   return (
     <>

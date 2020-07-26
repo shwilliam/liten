@@ -3,7 +3,7 @@ import {FormEvent, SyntheticEvent, useReducer} from 'react'
 import {useMutation} from 'react-query'
 
 import Layout from '../../components/site-layout'
-import {Link} from '../../interfaces'
+import {Link, LinkMeta} from '../../interfaces'
 
 type Props = {
   link: Link
@@ -25,34 +25,12 @@ const updateLinkRequest = async (data: any) => {
 
 const useUpdateLink = () => useMutation(updateLinkRequest)
 
-type LinkMetaTags = {
-  title: string
-  desc: string
-  og_title: string
-  og_desc: string
-  og_img_src: string
-  og_site: string
-  twitter_url: string
-  twitter_title: string
-  twitter_desc: string
-  twitter_img_alt: string
-  twitter_img_src: string
-  twitter_site_acc: string
-  twitter_author_acc: string
-  google_title: string
-  google_desc: string
-  google_img_src: string
-}
-
 type LinkEditFormAction = {
   type: string
   payload: any
 }
 
-const linkEditFormReducer = (
-  form: LinkMetaTags,
-  action: LinkEditFormAction,
-) => {
+const linkEditFormReducer = (form: LinkMeta, action: LinkEditFormAction) => {
   switch (action.type) {
     case 'INPUT':
       return {...form, [action.payload.name]: action.payload.value}
@@ -68,7 +46,6 @@ const defaultLinkData = {
   og_desc: '',
   og_img_src: '',
   og_site: '',
-  twitter_url: '',
   twitter_title: '',
   twitter_desc: '', // <200 chars
   twitter_img_alt: '',

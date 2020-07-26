@@ -9,6 +9,24 @@ type Props = {
 }
 
 const LinkPage = ({link}: Props) => {
+  const {
+    title,
+    desc,
+    og_title,
+    og_desc,
+    og_img_src,
+    og_site,
+    twitter_title,
+    twitter_desc,
+    twitter_img_alt,
+    twitter_img_src,
+    twitter_site_acc,
+    twitter_author_acc,
+    google_title,
+    google_desc,
+    google_img_src,
+  } = link
+
   useMount(() => {
     window?.location.replace(link.target)
   })
@@ -19,44 +37,35 @@ const LinkPage = ({link}: Props) => {
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
       {/* < 50 chars */}
-      <title>site title</title>
-      <meta name="title" content="site meta title" />
-
+      <title>{title}</title>
+      <meta name="title" content={title} />
       {/* < 160 chars */}
-      <meta name="description" content="site description" />
+      <meta name="description" content={desc} />
 
       {/* open graph */}
-      <meta property="og:title" content="og title" />
-      <meta property="og:description" content="og description" />
-      <meta
-        property="og:image"
-        content="https://microgradient.herokuapp.com/og.png"
-      />
+      <meta property="og:title" content={og_title} />
+      <meta property="og:description" content={og_desc} />
+      <meta property="og:image" content={og_img_src} />
       <meta property="og:url" content={process.env.BASE_URL} />
-      <meta property="og:site_name" content="og site name" />
+      <meta property="og:site_name" content={og_site} />
 
       {/* twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:url" content={process.env.BASE_URL} />
-      <meta property="twitter:title" content="twitter title" />
+      <meta property="twitter:title" content={twitter_title} />
       {/* < 200 chars */}
-      <meta name="twitter:description" content="twitter description" />
-      <meta name="twitter:image:alt" content="twitter image alt" />
-      <meta name="twitter:site" content="@twitter_site_username" />
-      <meta name="twitter:creator" content="@twitter_author_username" />
+      <meta name="twitter:description" content={twitter_desc} />
+      <meta name="twitter:image:alt" content={twitter_img_alt} />
+      {/* prefix w '@' */}
+      <meta name="twitter:site" content={twitter_site_acc} />
+      <meta name="twitter:creator" content={twitter_author_acc} />
       {/* > 280x150px */}
-      <meta
-        name="twitter:image:src"
-        content="https://microgradient.herokuapp.com/og/300,200.png"
-      />
+      <meta name="twitter:image:src" content={twitter_img_src} />
 
       {/* schema.org for google */}
-      <meta itemProp="name" content="google name" />
-      <meta itemProp="description" content="google description" />
-      <meta
-        itemProp="image"
-        content="https://microgradient.herokuapp.com/google.png"
-      />
+      <meta itemProp="name" content={google_title} />
+      <meta itemProp="description" content={google_desc} />
+      <meta itemProp="image" content={google_img_src} />
     </Head>
   )
 }

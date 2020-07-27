@@ -2,16 +2,17 @@ import Alert from '@reach/alert'
 import {useCopyToClipboard} from 'react-use'
 
 import {removeURLScheme, removeWebHostString} from '../utils'
+import {useState} from 'react'
 
 type ItemProps = {
   slug: string
   target: string
+  onCopy: (message: string) => void
 }
 
-const LinkListItem = ({slug, target}: ItemProps) => {
-  const [, copyToClipboard] = useCopyToClipboard()
+const LinkListItem = ({slug, target, onCopy}: ItemProps) => {
   const shortLink = `https://liten.xyz/${slug}`
-  const handleCopyToClipboard = () => copyToClipboard(shortLink)
+  const handleCopy = () => onCopy(shortLink)
 
   return (
     <li
@@ -44,14 +45,14 @@ const LinkListItem = ({slug, target}: ItemProps) => {
 
       <div className="flex sm:flex-row-reverse">
         <a
-          className="text-center bg-blue-700 text-white hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6"
+          className="text-center bg-indigo-500 text-white hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6"
           href={`/${slug}/edit`}
         >
           Edit
         </a>
         <button
-          className="text-blue-700 hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6"
-          onClick={handleCopyToClipboard}
+          className="text-indigo-500 hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6"
+          onClick={handleCopy}
         >
           Copy
         </button>
@@ -69,18 +70,50 @@ type Props = {
   links: LinkSummary[]
 }
 
-const LinkList = ({links = []}: Props) =>
-  links?.length ? (
+const LinkList = ({links = []}: Props) => {
+  const [, copyToClipboard] = useCopyToClipboard()
+  const [copiedAlerts, setCopiedAlerts] = useState<string[]>([])
+  const handleCopyToClipboard = (message: string) => {
+    copyToClipboard(message)
+    setCopiedAlerts(alerts => alerts.concat([message]))
+    setTimeout(() => {
+      setCopiedAlerts(alerts => alerts.slice(1))
+    }, 5000)
+  }
+
+  return links?.length ? (
     <>
       <h2 className="font-semibold text-4xl lg:text-5xl tracking-tight text-white mt-6 lg:mt-10 xl:mt-12 mb-2">
         Your Links
       </h2>
+
       <ul>
         {links.map(({slug, target}) => (
-          <LinkListItem key={slug} slug={slug} target={target} />
+          <LinkListItem
+            key={slug}
+            slug={slug}
+            target={target}
+            onCopy={handleCopyToClipboard}
+          />
         ))}
       </ul>
+
+      <div className="fixed bottom-0 right-0 left-0 md:left-auto z-50 text-center md:text-left md:py-4 md:px-4 -mb-1">
+        {copiedAlerts.map((message, idx) => (
+          <Alert key={idx}>
+            <div className="px-2 py-4 md:py-2 md:my-1 bg-indigo-800 items-center text-indigo-100 leading-none md:rounded-full flex md:inline-flex border-b-2 border-white md:border-0">
+              <span className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
+                Copied
+              </span>
+              <span className="font-semibold mr-2 text-left flex-auto">
+                {message}
+              </span>
+            </div>
+          </Alert>
+        ))}
+      </div>
     </>
   ) : null
+}
 
 export default LinkList

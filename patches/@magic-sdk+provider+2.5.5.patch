@@ -1,0 +1,12 @@
+diff --git a/node_modules/@magic-sdk/provider/dist/commonjs/util/index.d.ts b/node_modules/@magic-sdk/provider/dist/commonjs/util/index.d.ts
+index 2251d65..0c556a2 100644
+--- a/node_modules/@magic-sdk/provider/dist/commonjs/util/index.d.ts
++++ b/node_modules/@magic-sdk/provider/dist/commonjs/util/index.d.ts
+@@ -3,4 +3,6 @@ export * from './promise-tools';
+ export * from './base64-json';
+ export * from './type-guards';
+ export * from './url';
+-export * as storage from './storage';
++
++import * as storageTypes from './storage';
++export const storage = storageTypes;

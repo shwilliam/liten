@@ -1,6 +1,6 @@
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@reach/tabs'
 import {GetServerSideProps} from 'next'
-import {FormEvent, useReducer} from 'react'
+import {FormEvent, useReducer, ReactNode} from 'react'
 
 import {
   GooglePreview,
@@ -8,16 +8,29 @@ import {
   TwitterPreview,
 } from '../../components/share-previews'
 import Layout from '../../components/site-layout'
+import Input from '../../components/input'
+import Label from '../../components/label'
 import {useUpdateLink} from '../../hooks'
 import {Link, LinkMeta} from '../../interfaces'
 import {removeURLScheme, removeWebHostString} from '../../utils'
 
-const tabStyles =
-  'edit-tab no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs md:text-base py-3 mr-3 md:mr-8 hover:opacity-50'
-const inputWrapperStyles = 'w-full flex-grow my-1'
-const inputFirstWrapperStyles = 'w-full flex-grow my-1 sm:mr-2'
-const inputStyles = 'w-full my-1 px-3 py-2 border rounded placeholder-gray-800'
-const labelStyles = 'block font-semibold text-xl mx-2 mt-4'
+const StyledTab = ({children}: {children?: ReactNode}) => (
+  <Tab className="edit-tab no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs md:text-base py-3 mr-3 md:mr-8 hover:opacity-50">
+    {children}
+  </Tab>
+)
+
+const InputWrapper = ({
+  first = false,
+  children,
+}: {
+  first?: boolean
+  children?: ReactNode
+}) => (
+  <div className={`w-full flex-grow my-1 ${first ? 'sm:mr-2' : ''}`}>
+    {children}
+  </div>
+)
 
 type Props = {
   link: Link
@@ -120,10 +133,10 @@ const LinkEditPage = ({link, slug}: Props) => {
           <form onSubmit={handleSubmit}>
             <Tabs>
               <TabList className="-mb-px flex md:justify-center overflow-scroll">
-                <Tab className={tabStyles}>General</Tab>
-                <Tab className={tabStyles}>Twitter</Tab>
-                <Tab className={tabStyles}>Facebook</Tab>
-                <Tab className={tabStyles}>Google</Tab>
+                <StyledTab>General</StyledTab>
+                <StyledTab>Twitter</StyledTab>
+                <StyledTab>Facebook</StyledTab>
+                <StyledTab>Google</StyledTab>
               </TabList>
               <TabPanels className="max-w-4xl mx-auto">
                 <TabPanel>
@@ -132,37 +145,31 @@ const LinkEditPage = ({link, slug}: Props) => {
                   <OGPreview title={form.title} desc={form.desc} />
 
                   <div className="sm:flex w-full">
-                    <div className={inputFirstWrapperStyles}>
-                      <label className={labelStyles} htmlFor="title">
-                        Title
-                      </label>
-                      <input
+                    <InputWrapper first>
+                      <Label htmlFor="title">Title</Label>
+                      <Input
                         value={form.title}
                         onChange={handleInput}
-                        className={inputStyles}
                         name="title"
                         id="title"
                         type="text"
                         placeholder="Awesome link"
                         maxLength={50}
                       />
-                    </div>
+                    </InputWrapper>
 
-                    <div className={inputWrapperStyles}>
-                      <label className={labelStyles} htmlFor="desc">
-                        Description
-                      </label>
-                      <input
+                    <InputWrapper>
+                      <Label htmlFor="desc">Description</Label>
+                      <Input
                         value={form.desc}
                         onChange={handleInput}
-                        className={inputStyles}
                         name="desc"
                         id="desc"
                         type="text"
                         placeholder="An awesome place on the internet"
                         maxLength={160}
                       />
-                    </div>
+                    </InputWrapper>
                   </div>
                 </TabPanel>
                 <TabPanel>
@@ -175,104 +182,87 @@ const LinkEditPage = ({link, slug}: Props) => {
                   />
 
                   <div className="sm:flex w-full">
-                    <div className={inputFirstWrapperStyles}>
-                      <label className={labelStyles} htmlFor="twitter_title">
-                        Title
-                      </label>
-                      <input
+                    <InputWrapper first>
+                      <Label htmlFor="twitter_title">Title</Label>
+                      <Input
                         value={form.twitter_title}
                         onChange={handleInput}
-                        className={inputStyles}
                         name="twitter_title"
                         id="twitter_title"
                         type="text"
                         placeholder="Awesome link"
                         maxLength={50}
                       />
-                    </div>
+                    </InputWrapper>
 
-                    <div className={inputWrapperStyles}>
-                      <label className={labelStyles} htmlFor="twitter_desc">
-                        Description
-                      </label>
-                      <input
+                    <InputWrapper>
+                      <Label htmlFor="twitter_desc">Description</Label>
+                      <Input
                         value={form.twitter_desc}
                         onChange={handleInput}
-                        className={inputStyles}
                         name="twitter_desc"
                         id="twitter_desc"
                         type="text"
                         placeholder="An awesome place on the internet"
                         maxLength={200}
                       />
-                    </div>
+                    </InputWrapper>
                   </div>
 
                   <div className="sm:flex w-full">
-                    <div className={inputFirstWrapperStyles}>
-                      <label className={labelStyles} htmlFor="twitter_img_src">
-                        Image
-                      </label>
-                      <input
+                    <InputWrapper first>
+                      <Label htmlFor="twitter_img_src">Image</Label>
+                      <Input
                         onChange={handleFileInput}
-                        className={inputStyles}
                         name="twitter_img_src"
                         id="twitter_img_src"
                         type="file"
                         accept="image/png, image/jpeg"
                         multiple={false}
                       />
-                    </div>
+                    </InputWrapper>
 
-                    <div className={inputWrapperStyles}>
-                      <label className={labelStyles} htmlFor="twitter_img_alt">
-                        Image alt
-                      </label>
-                      <input
+                    <InputWrapper>
+                      <Label htmlFor="twitter_img_alt">Image alt</Label>
+                      <Input
                         value={form.twitter_img_alt}
                         onChange={handleInput}
-                        className={inputStyles}
                         name="twitter_img_alt"
                         id="twitter_img_alt"
                         type="text"
                         placeholder="A flower"
                       />
-                    </div>
+                    </InputWrapper>
                   </div>
 
                   <div className="sm:flex w-full">
-                    <div className={inputFirstWrapperStyles}>
-                      <label className={labelStyles} htmlFor="twitter_site_acc">
+                    <InputWrapper first>
+                      <Label htmlFor="twitter_site_acc">
                         Twitter site account
-                      </label>
-                      <input
+                      </Label>
+                      <Input
                         value={form.twitter_site_acc}
                         onChange={handleInput}
-                        className={inputStyles}
                         name="twitter_site_acc"
                         id="twitter_site_acc"
                         type="text"
                         placeholder="@reddit"
                       />
-                    </div>
+                    </InputWrapper>
 
-                    <div className={inputWrapperStyles}>
-                      <label
-                        className={labelStyles}
-                        htmlFor="twitter_author_acc"
-                      >
+                    <InputWrapper>
+                      <Label htmlFor="twitter_author_acc">
                         Twitter author account
-                      </label>
-                      <input
+                      </Label>
+                      <Input
                         value={form.twitter_author_acc}
                         onChange={handleInput}
-                        className={inputStyles}
                         name="twitter_author_acc"
                         id="twitter_author_acc"
                         type="text"
                         placeholder="@shwilliam"
                       />
-                    </div>
+                    </InputWrapper>
                   </div>
                 </TabPanel>
                 <TabPanel>
@@ -285,69 +275,57 @@ const LinkEditPage = ({link, slug}: Props) => {
                   />
 
                   <div className="sm:flex w-full">
-                    <div className={inputFirstWrapperStyles}>
-                      <label className={labelStyles} htmlFor="og_title">
-                        Title
-                      </label>
-                      <input
+                    <InputWrapper first>
+                      <Label htmlFor="og_title">Title</Label>
+                      <Input
                         value={form.og_title}
                         onChange={handleInput}
-                        className={inputStyles}
                         name="og_title"
                         id="og_title"
                         type="text"
                         placeholder="Awesome link"
                         maxLength={50}
                       />
-                    </div>
+                    </InputWrapper>
 
-                    <div className={inputWrapperStyles}>
-                      <label className={labelStyles} htmlFor="og_desc">
-                        Description
-                      </label>
-                      <input
+                    <InputWrapper>
+                      <Label htmlFor="og_desc">Description</Label>
+                      <Input
                         value={form.og_desc}
                         onChange={handleInput}
-                        className={inputStyles}
                         name="og_desc"
                         id="og_desc"
                         type="text"
                         placeholder="An awesome place on the internet"
                         maxLength={160}
                       />
-                    </div>
+                    </InputWrapper>
                   </div>
 
                   <div className="sm:flex w-full">
-                    <div className={inputFirstWrapperStyles}>
-                      <label className={labelStyles} htmlFor="og_site">
-                        Site name
-                      </label>
-                      <input
+                    <InputWrapper first>
+                      <Label htmlFor="og_site">Site name</Label>
+                      <Input
                         value={form.og_site}
                         onChange={handleInput}
-                        className={inputStyles}
                         name="og_site"
                         id="og_site"
                         type="text"
                         placeholder="Awesome site"
                       />
-                    </div>
+                    </InputWrapper>
 
-                    <div className={inputWrapperStyles}>
-                      <label className={labelStyles} htmlFor="og_img_src">
-                        Image
-                      </label>
-                      <input
+                    <InputWrapper>
+                      <Label htmlFor="og_img_src">Image</Label>
+                      <Input
                         onChange={handleFileInput}
-                        className={inputStyles}
                         name="og_img_src"
                         id="og_img_src"
                         type="file"
                         accept="image/png, image/jpeg"
                         multiple={false}
                       />
-                    </div>
+                    </InputWrapper>
                   </div>
                 </TabPanel>
                 <TabPanel>
@@ -360,53 +338,44 @@ const LinkEditPage = ({link, slug}: Props) => {
                   />
 
                   <div className="sm:flex w-full">
-                    <div className={inputFirstWrapperStyles}>
-                      <label className={labelStyles} htmlFor="google_title">
-                        Title
-                      </label>
-                      <input
+                    <InputWrapper first>
+                      <Label htmlFor="google_title">Title</Label>
+                      <Input
                         value={form.google_title}
                         onChange={handleInput}
-                        className={inputStyles}
                         name="google_title"
                         id="google_title"
                         type="text"
                         placeholder="Awesome link"
                         maxLength={50}
                       />
-                    </div>
+                    </InputWrapper>
 
-                    <div className={inputWrapperStyles}>
-                      <label className={labelStyles} htmlFor="google_desc">
-                        Description
-                      </label>
-                      <input
+                    <InputWrapper>
+                      <Label htmlFor="google_desc">Description</Label>
+                      <Input
                         value={form.google_desc}
                         onChange={handleInput}
-                        className={inputStyles}
                         name="google_desc"
                         id="google_desc"
                         type="text"
                         placeholder="An awesome place on the internet"
                         maxLength={160}
                       />
-                    </div>
+                    </InputWrapper>
                   </div>
 
-                  <div className={inputWrapperStyles}>
-                    <label className={labelStyles} htmlFor="google_img_src">
-                      Image
-                    </label>
-                    <input
+                  <InputWrapper>
+                    <Label htmlFor="google_img_src">Image</Label>
+                    <Input
                       onChange={handleFileInput}
-                      className={inputStyles}
                       name="google_img_src"
                       id="google_img_src"
                       type="file"
                       accept="image/png, image/jpeg"
                       multiple={false}
                     />
-                  </div>
+                  </InputWrapper>
                 </TabPanel>
               </TabPanels>
             </Tabs>

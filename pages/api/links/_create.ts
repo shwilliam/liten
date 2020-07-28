@@ -16,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.status(201).json({link})
   } catch (err) {
-    res.status(500).json({statusCode: 500, message: err.message})
+    res.status(500).json({error: {message: err.message}})
   } finally {
     await prisma.disconnect()
   }

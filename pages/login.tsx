@@ -1,16 +1,10 @@
-import {useState} from 'react'
-import Link from 'next/link'
 import {Magic} from 'magic-sdk'
-
-import Layout from '../components/site-layout'
 import {useRouter} from 'next/dist/client/router'
+import Link from 'next/link'
+import {useState} from 'react'
 
-const Input = (props: any) => (
-  <input
-    className="w-full px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-    {...props}
-  />
-)
+import Input from '../components/input'
+import Layout from '../components/site-layout'
 
 const LoginPage = () => {
   const router = useRouter()

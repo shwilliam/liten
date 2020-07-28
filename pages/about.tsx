@@ -4,7 +4,7 @@ import Layout from '../components/site-layout'
 
 const AboutPage = () => (
   <Layout title="about ~ liten">
-    <h1>About</h1>
+    <h2>About</h2>
     <p>
       <Link href="/">
         <a>Go home</a>

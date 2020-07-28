@@ -1,5 +1,4 @@
-import {PreviewIndicator} from './'
-import {roundedPreviewContainerStyles, previewContainerStyles} from './styles'
+import {PreviewContainer, PreviewIndicator} from './'
 
 export const TwitterPreview = ({
   img,
@@ -10,17 +9,17 @@ export const TwitterPreview = ({
   title: string
   desc: string
 }) => (
-  <div className={roundedPreviewContainerStyles}>
+  <PreviewContainer rounded>
     <PreviewIndicator />
     {img && (
-      <div className={previewContainerStyles}>
+      <PreviewContainer>
         <img className="w-full object-cover bg-gray-500" src={img} />
-      </div>
+      </PreviewContainer>
     )}
     <div className="px-6 py-4">
       <div className="font-semibold mb-1">{title}</div>
       <p className="text-grey-darker mb-1">{desc}</p>
       <p className="opacity-50">liten.xyz</p>
     </div>
-  </div>
+  </PreviewContainer>
 )

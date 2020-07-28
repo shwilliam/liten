@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const link = await prisma.link.findOne({where: {slug: slug as string}})
     res.json({link})
   } catch (err) {
-    res.status(500).json({statusCode: 500, message: err.message})
+    res.status(500).json({error: {message: err.message}})
   } finally {
     await prisma.disconnect()
   }

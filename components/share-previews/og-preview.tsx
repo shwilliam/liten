@@ -1,5 +1,4 @@
-import {PreviewIndicator} from './'
-import {previewContainerStyles} from './styles'
+import {PreviewContainer, PreviewIndicator} from './'
 
 export const OGPreview = ({
   img,
@@ -10,7 +9,7 @@ export const OGPreview = ({
   title: string
   desc: string
 }) => (
-  <div className={previewContainerStyles}>
+  <PreviewContainer>
     <PreviewIndicator />
     {img && (
       <div className="h-40 overflow-hidden flex align-center">
@@ -21,5 +20,5 @@ export const OGPreview = ({
       <div className="font-serif text-xl mb-2">{title}</div>
       <p className="text-grey-darker text-base">{desc}</p>
     </div>
-  </div>
+  </PreviewContainer>
 )

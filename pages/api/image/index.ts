@@ -7,15 +7,19 @@ const upload = multer({dest: './tmp'})
 const handler = nc<NextApiRequest, NextApiResponse>()
 
 handler.post(upload.single('image'), async (req, res) => {
-  if (!req.file) res.status(400).end()
+  try {
+    if (!req.file) throw new Error('No file to upload')
 
-  const image = await cloudinary.uploader.upload(req.file.path, {
-    width: 512,
-    height: 512,
-    crop: 'fill',
-  })
+    const image = await cloudinary.uploader.upload(req.file.path, {
+      width: 512,
+      height: 512,
+      crop: 'fill',
+    })
 
-  res.json({image})
+    res.json({image})
+  } catch (err) {
+    res.status(500).json({error: {message: err.message}})
+  }
 })
 
 export const config = {

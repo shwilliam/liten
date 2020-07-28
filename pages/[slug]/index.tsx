@@ -10,6 +10,7 @@ type Props = {
 
 const LinkPage = ({link}: Props) => {
   const {
+    slug,
     title,
     desc,
     og_title,
@@ -46,12 +47,12 @@ const LinkPage = ({link}: Props) => {
       <meta property="og:title" content={og_title} />
       <meta property="og:description" content={og_desc} />
       <meta property="og:image" content={og_img_src} />
-      <meta property="og:url" content={process.env.BASE_URL} />
+      <meta property="og:url" content={`${process.env.BASE_UR}/${slug}`} />
       <meta property="og:site_name" content={og_site} />
 
       {/* twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content={process.env.BASE_URL} />
+      <meta property="twitter:url" content={`${process.env.BASE_UR}/${slug}`} />
       <meta property="twitter:title" content={twitter_title} />
       {/* < 200 chars */}
       <meta name="twitter:description" content={twitter_desc} />

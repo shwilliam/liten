@@ -1,10 +1,16 @@
 import Hero from '../components/hero'
 import NewLinkForm from '../components/new-link-form'
 import Layout from '../components/site-layout'
+import {AuthToken} from '../interfaces'
+import {validateHeaderToken} from '../utils'
 
-const IndexPage = () => {
+type Props = {
+  token: AuthToken
+}
+
+const IndexPage = ({token}: Props) => {
   return (
-    <Layout title="home ~ liten">
+    <Layout title="home ~ liten" isAuthenticated={!!token}>
       <h1 className="sr-only">liten</h1>
 
       <Hero />
@@ -16,6 +22,11 @@ const IndexPage = () => {
       </div>
     </Layout>
   )
+}
+
+export const getServerSideProps = async (ctx: any) => {
+  const token = validateHeaderToken(ctx.req.headers)
+  return {props: {token}}
 }
 
 export default IndexPage

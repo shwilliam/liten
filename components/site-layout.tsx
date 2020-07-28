@@ -6,9 +6,14 @@ import {useRouter} from 'next/dist/client/router'
 type Props = {
   children?: ReactNode
   title?: string
+  isAuthenticated?: boolean
 }
 
-const Layout = ({children, title = 'liten'}: Props) => {
+const Layout = ({
+  children,
+  title = 'liten',
+  isAuthenticated = false,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const toggleOpen = () => setIsOpen(s => !s)
   const router = useRouter()
@@ -68,13 +73,15 @@ const Layout = ({children, title = 'liten'}: Props) => {
                 all
               </a>
             </li>
-            <li className="block mt-4 sm:inline-block sm:mt-0 mr-4">
-              <Link href="/">
-                <a className="block px-3 py-2 border rounded hover:bg-orange-600 hover:text-white border-orange-600 bg-white text-orange-600">
-                  Sign up
-                </a>
-              </Link>
-            </li>
+            {!isAuthenticated && (
+              <li className="block mt-4 sm:inline-block sm:mt-0 mr-4">
+                <Link href="/login">
+                  <a className="block px-3 py-2 border rounded hover:bg-orange-600 hover:text-white border-orange-600 bg-white text-orange-600">
+                    Get started
+                  </a>
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
       </header>

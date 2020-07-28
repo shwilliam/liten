@@ -1,6 +1,6 @@
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@reach/tabs'
 import {GetServerSideProps} from 'next'
-import {FormEvent, SyntheticEvent, useReducer} from 'react'
+import {FormEvent, useReducer} from 'react'
 
 import {
   GooglePreview,
@@ -63,8 +63,7 @@ const LinkEditPage = ({link, slug}: Props) => {
     ...link,
   })
 
-  const handleInput = (e: SyntheticEvent) =>
-    dispatch({type: 'INPUT', payload: e.target})
+  const handleInput = (e: any) => dispatch({type: 'INPUT', payload: e.target})
 
   const handleFileInput = async (e: any) => {
     const file = e.target.files[0]
@@ -114,7 +113,7 @@ const LinkEditPage = ({link, slug}: Props) => {
           >
             {removeWebHostString(removeURLScheme(link.target))}
           </a>
-          <h1 className="font-bold text-4xl md:text-6xl lg:text-center mb-3 md:mb-8 text-gray-900 leading-tight">
+          <h1 className="font-bold text-4xl md:text-6xl md:text-center mb-3 md:mb-8 text-gray-900 leading-tight">
             Edit /{slug}
           </h1>
 
@@ -430,9 +429,7 @@ const LinkEditPage = ({link, slug}: Props) => {
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const slug = ctx?.params?.slug
-  const linkRes = await fetch(
-    `${process.env.BASE_URL}/api/links/${slug}`,
-  )
+  const linkRes = await fetch(`${process.env.BASE_URL}/api/links/${slug}`)
   const linkJSON = await linkRes.json()
   const {link} = linkJSON
 

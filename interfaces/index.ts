@@ -1,3 +1,9 @@
+export type AuthToken = {
+  id: string
+  email: string
+  time: Date
+}
+
 export interface Link extends LinkMeta {
   id: number
   slug: string

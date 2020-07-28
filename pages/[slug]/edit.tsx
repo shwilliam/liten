@@ -83,33 +83,38 @@ const LinkEditPage = ({link, slug}: Props) => {
   const handleInput = (e: any) => dispatch({type: 'INPUT', payload: e.target})
 
   const handleFileInput = async (e: any) => {
-    const file = e.target.files[0]
+    try {
+      const file = e.target.files[0]
 
-    if (!file) return
-    e.persist()
+      if (!file) return
+      e.persist()
 
-    // 1mb
-    if (file.size > 1048576) {
-      alert('Image exceeds max file size of 1mb')
-      return
+      // 1mb
+      if (file.size > 1048576) {
+        alert('Image exceeds max file size of 1mb')
+        return
+      }
+
+      const formData = new FormData()
+      formData.append('image', file)
+
+      const response = await fetch('/api/image', {
+        method: 'POST',
+        body: formData,
+      })
+      const {image} = await response.json()
+
+      dispatch({
+        type: 'INPUT',
+        payload: {
+          name: e.target.name,
+          value: image.secure_url,
+        },
+      })
+    } catch (err) {
+      console.error({err})
+      // TODO
     }
-
-    const formData = new FormData()
-    formData.append('image', file)
-
-    const response = await fetch('/api/image', {
-      method: 'POST',
-      body: formData,
-    })
-    const {image} = await response.json()
-
-    dispatch({
-      type: 'INPUT',
-      payload: {
-        name: e.target.name,
-        value: image.secure_url,
-      },
-    })
   }
 
   const handleSubmit = async (e: FormEvent) => {

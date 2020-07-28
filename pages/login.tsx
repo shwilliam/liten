@@ -62,7 +62,6 @@ const LoginPage = () => {
           />
 
           <button
-            /* disabled={} */
             className="block w-full flex-shrink-0 px-3 py-2 my-1 border rounded bg-orange-700 text-white border-orange-700 hover:opacity-75"
             type="submit"
           >

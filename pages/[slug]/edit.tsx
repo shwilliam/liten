@@ -12,7 +12,11 @@ import Input from '../../components/input'
 import Label from '../../components/label'
 import {useUpdateLink} from '../../hooks'
 import {Link, LinkMeta} from '../../interfaces'
-import {removeURLScheme, removeWebHostString} from '../../utils'
+import {
+  removeURLScheme,
+  removeWebHostString,
+  validateHeaderToken,
+} from '../../utils'
 
 const StyledTab = ({children}: {children?: ReactNode}) => (
   <Tab className="edit-tab no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs md:text-base py-3 mr-3 md:mr-8 hover:opacity-50">
@@ -397,6 +401,15 @@ const LinkEditPage = ({link, slug}: Props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
+  const token = validateHeaderToken(ctx.req.headers)
+
+  if (!token)
+    ctx.res
+      .writeHead(301, {
+        Location: '/login',
+      })
+      .end()
+
   const slug = ctx?.params?.slug
   const linkRes = await fetch(`${process.env.BASE_URL}/api/links/${slug}`)
   const linkJSON = await linkRes.json()

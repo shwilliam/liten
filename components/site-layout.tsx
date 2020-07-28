@@ -68,11 +68,6 @@ const Layout = ({
                 </a>
               </Link>
             </li>
-            <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">
-              <a href="/api/links" className="hover:opacity-75">
-                all
-              </a>
-            </li>
             {!isAuthenticated && (
               <li className="block mt-4 sm:inline-block sm:mt-0 mr-4">
                 <Link href="/login">

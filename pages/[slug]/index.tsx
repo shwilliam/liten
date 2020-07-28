@@ -44,6 +44,7 @@ const LinkPage = ({link}: Props) => {
       <meta name="description" content={desc} />
 
       {/* open graph */}
+      <meta property="og:type" content="website" />
       <meta property="og:title" content={og_title} />
       <meta property="og:description" content={og_desc} />
       <meta property="og:image" content={og_img_src} />

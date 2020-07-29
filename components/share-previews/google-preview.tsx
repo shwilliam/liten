@@ -9,13 +9,9 @@ export const GooglePreview = ({
   title: string
   desc: string
 }) => (
-  <PreviewContainer rounded>
+  <PreviewContainer>
     <PreviewIndicator />
-    {img && (
-      <PreviewContainer>
-        <img className="w-full object-cover" src={img} />
-      </PreviewContainer>
-    )}
+    {img && <img className="w-full object-cover" src={img} />}
     <div className="px-6 py-4">
       <div className="font-semibold mb-1">{title}</div>
       <p className="text-grey-darker mb-1">{desc}</p>

@@ -140,7 +140,7 @@ const LinkEditPage = ({link, slug}: Props) => {
           </h1>
 
           <form onSubmit={handleSubmit}>
-            <Tabs>
+            <Tabs className="outline-none">
               <TabList className="-mb-px flex md:justify-center overflow-scroll">
                 <StyledTab>General</StyledTab>
                 <StyledTab>Twitter</StyledTab>
@@ -255,7 +255,7 @@ const LinkEditPage = ({link, slug}: Props) => {
                         name="twitter_site_acc"
                         id="twitter_site_acc"
                         type="text"
-                        placeholder="@reddit"
+                        placeholder="@mycompany"
                       />
                     </InputWrapper>
 
@@ -269,7 +269,7 @@ const LinkEditPage = ({link, slug}: Props) => {
                         name="twitter_author_acc"
                         id="twitter_author_acc"
                         type="text"
-                        placeholder="@shwilliam"
+                        placeholder="@me"
                       />
                     </InputWrapper>
                   </div>

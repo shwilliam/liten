@@ -16,8 +16,9 @@ export const OGPreview = ({
         <img className="w-full object-cover" src={img} />
       </div>
     )}
-    <div className="px-6 py-4">
-      <div className="font-serif text-xl mb-2">{title}</div>
+    <div className="px-4 py-2">
+      <p className="text-xs opacity-75 uppercase">liten.xyz</p>
+      <div className="font-bold">{title}</div>
       <p className="text-grey-darker text-base">{desc}</p>
     </div>
   </PreviewContainer>

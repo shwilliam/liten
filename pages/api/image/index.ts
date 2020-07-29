@@ -3,7 +3,7 @@ import multer from 'multer'
 import {NextApiRequest, NextApiResponse} from 'next'
 import nc from 'next-connect'
 
-const upload = multer({dest: 'uploads/'})
+const upload = multer({dest: '/tmp'})
 const handler = nc<NextApiRequest, NextApiResponse>()
 
 handler.post(upload.single('image'), async (req, res) => {

@@ -3,7 +3,7 @@ import {NextApiRequest, NextApiResponse} from 'next'
 import nc from 'next-connect'
 import Stripe from 'stripe'
 
-import {validateHeaderToken} from '../../../utils'
+import {validateHeaderToken} from '../../../../utils'
 
 const {STRIPE_SECRET_KEY} = process.env
 
@@ -23,7 +23,7 @@ handler.post(async (req, res) => {
     if (!token) res.status(401).end()
 
     const email = token?.email
-    const user = await prisma.user.findOne({where: {email}})
+    let user = await prisma.user.findOne({where: {email}})
 
     if (!user) {
       // TODO
@@ -32,12 +32,24 @@ handler.post(async (req, res) => {
 
     let customerId = user.stripeId
 
-    if (!customerId) {
+    if (customerId) {
+      const customer = await stripe.customers.retrieve(customerId)
+      const isActiveSubscriber = customer.subscriptions.data.some(
+        (sub: any) =>
+          sub.plan.id === process.env.STRIPE_SUBSCRIPTION_PRODUCT &&
+          sub.plan.active === true,
+      )
+
+      if (isActiveSubscriber) {
+        res.status(409).json({error: {message: 'Already subscribed'}})
+        return
+      }
+    } else {
       const customer = await stripe?.customers.create({
         email: user.email,
       })
       customerId = customer.id
-      await prisma.user.update({
+      user = await prisma.user.update({
         where: {email},
         data: {
           stripeId: customerId,
@@ -45,9 +57,10 @@ handler.post(async (req, res) => {
       })
     }
 
-    res.json({customerId: customerId})
-  } catch (err) {
-    res.status(500).json({error: {message: err.message}})
+    res.json({user})
+  } catch (error) {
+    console.log({error})
+    res.status(500).json({error: {message: error.message}})
   } finally {
     await prisma.disconnect()
   }

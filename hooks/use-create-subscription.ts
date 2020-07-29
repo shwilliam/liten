@@ -8,7 +8,10 @@ export const useCreateSubscription = () => {
       method: 'POST',
     })
     const customer = await customerResponse.json()
-    const sessionId = await subscribe({stripeId: customer.customerId})
+
+    if (customer.error) throw new Error(customer.error.message)
+
+    const sessionId = await subscribe({stripeId: customer.user.stripeId})
     return sessionId
   }
 

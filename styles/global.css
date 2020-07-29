@@ -5,6 +5,7 @@
 
 @tailwind utilities;
 
+/* purgecss start ignore */
 [disabled] {
   opacity: 0.5;
   cursor: not-allowed;
@@ -38,3 +39,4 @@
 .preview {
   min-height: 70px;
 }
+/* purgecss end ignore */

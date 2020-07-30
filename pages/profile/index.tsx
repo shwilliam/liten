@@ -10,7 +10,7 @@ const stripePromise =
   NEXT_PUBLIC_STRIPE_PUBLIC_KEY && loadStripe(NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
 
 const ProfilePage = () => {
-  const isActiveSubscriber = useViewerSubscription()
+  const viewerSubscription = useViewerSubscription()
   const createSubscription = useCreateSubscription()
 
   const doSubscribe = async () => {
@@ -37,18 +37,36 @@ const ProfilePage = () => {
     }
   }
 
+  const doUnsubscribe = async () => {
+    try {
+      if (!viewerSubscription?.subscription) return
+
+      await fetch(
+        `/api/checkout/customer/${viewerSubscription.subscription.id}`,
+        {
+          method: 'DELETE',
+        },
+      )
+
+      if (typeof window !== 'undefined') window.location.reload(false)
+    } catch (err) {
+      console.log(err)
+    } //TODO
+  }
+
   return (
     <Layout title="profile ~ liten" isAuthenticated={true}>
       <h2>Profile</h2>
 
-      {typeof isActiveSubscriber === 'undefined' ? (
+      {!viewerSubscription ? (
         'Loading subscription...'
-      ) : isActiveSubscriber ? (
+      ) : viewerSubscription.subscription?.status === 'active' ? (
         <p>
           You are subscribed!{' '}
           <span role="img" aria-label="Sparkles">
             ✨
           </span>
+          <button onClick={doUnsubscribe}>Unsubscribe</button>
         </p>
       ) : (
         <button onClick={doSubscribe}>Subscribe</button>

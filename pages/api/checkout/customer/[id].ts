@@ -12,22 +12,35 @@ const stripe =
 
 const handler = nc<NextApiRequest, NextApiResponse>()
 
-handler.get(async (req, res) => {
-  try {
-    const {id} = req.query
+handler
+  .get(async (req, res) => {
+    try {
+      const {id} = req.query
 
-    const customer = await stripe.customers.retrieve(id)
+      const customer = await stripe.customers.retrieve(id)
 
-    const isActiveSubscriber = customer.subscriptions.data.some(
-      (sub: any) =>
-        sub.plan.id === process.env.STRIPE_SUBSCRIPTION_PRODUCT &&
-        sub.plan.active === true,
-    )
+      const activeSubscription = customer.subscriptions.data.find(
+        (sub: any) =>
+          sub.plan.id === process.env.STRIPE_SUBSCRIPTION_PRODUCT &&
+          sub.plan.active === true,
+      )
 
-    res.json({...customer, isActiveSubscriber})
-  } catch (err) {
-    res.status(500).json({error: {message: err.message}})
-  }
-})
+      res.json({customer, subscription: activeSubscription})
+    } catch (err) {
+      res.status(500).json({error: {message: err.message}})
+    }
+  })
+  .delete(async (req, res) => {
+    try {
+      const {id} = req.query
+
+      const subscription = await stripe.subscriptions.del(id)
+
+      res.json(subscription)
+    } catch (err) {
+      console.log({err})
+      res.status(500).json({error: {message: err.message}})
+    }
+  })
 
 export default handler

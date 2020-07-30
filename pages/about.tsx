@@ -10,7 +10,7 @@ type Props = {
 
 const AboutPage = ({token}: Props) => (
   <Layout title="about ~ liten" isAuthenticated={!!token}>
-    <h2>About</h2>
+    <h1>About</h1>
     <p>
       <Link href="/">
         <a>Go home</a>

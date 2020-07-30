@@ -65,7 +65,7 @@ const ProfilePage = () => {
 
   return (
     <Layout title="profile ~ liten" isAuthenticated={true}>
-      <h2>Profile</h2>
+      <h1>Profile</h1>
       <button onClick={logout}>Log out</button>
 
       {!viewerSubscription ? (

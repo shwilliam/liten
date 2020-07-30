@@ -2,8 +2,8 @@ import Layout from '../components/site-layout'
 
 const PrivacyPolicyPage = () => (
   <Layout title="terms of service ~ liten">
-    <h2>Terms of Service</h2>
-    <h3>1. Terms</h3>
+    <h1>Terms of Service</h1>
+    <h2>1. Terms</h2>
     <p>
       By accessing the website at{' '}
       <a href="https://liten.xyz">https://liten.xyz</a>, you are agreeing to be
@@ -13,7 +13,7 @@ const PrivacyPolicyPage = () => (
       using or accessing this site. The materials contained in this website are
       protected by applicable copyright and trademark law.
     </p>
-    <h3>2. Use License</h3>
+    <h2>2. Use License</h2>
     <ol type="a">
       <li>
         Permission is hereby granted, free of charge, to any person obtaining a
@@ -31,7 +31,7 @@ const PrivacyPolicyPage = () => (
         </ol>
       </li>
     </ol>
-    <h3>3. Disclaimer</h3>
+    <h2>3. Disclaimer</h2>
     <ol type="a">
       <li>
         The materials on liten's website are provided on an 'as is' basis. Liten
@@ -48,7 +48,7 @@ const PrivacyPolicyPage = () => (
         linked to this site.
       </li>
     </ol>
-    <h3>4. Limitations</h3>
+    <h2>4. Limitations</h2>
     <p>
       In no event shall liten or its suppliers be liable for any damages
       (including, without limitation, damages for loss of data or profit, or due
@@ -59,7 +59,7 @@ const PrivacyPolicyPage = () => (
       implied warranties, or limitations of liability for consequential or
       incidental damages, these limitations may not apply to you.
     </p>
-    <h3>5. Accuracy of materials</h3>
+    <h2>5. Accuracy of materials</h2>
     <p>
       The materials appearing on liten's website could include technical,
       typographical, or photographic errors. Liten does not warrant that any of
@@ -68,20 +68,20 @@ const PrivacyPolicyPage = () => (
       notice. However liten does not make any commitment to update the
       materials.
     </p>
-    <h3>6. Links</h3>
+    <h2>6. Links</h2>
     <p>
       Liten has not reviewed all of the sites linked to its website and is not
       responsible for the contents of any such linked site. The inclusion of any
       link does not imply endorsement by liten of the site. Use of any such
       linked website is at the user's own risk.
     </p>
-    <h3>7. Modifications</h3>
+    <h2>7. Modifications</h2>
     <p>
       Liten may revise these terms of service for its website at any time
       without notice. By using this website you are agreeing to be bound by the
       then current version of these terms of service.
     </p>
-    <h3>8. Governing Law</h3>
+    <h2>8. Governing Law</h2>
     <p>
       These terms and conditions are governed by and construed in accordance
       with the laws of Vancouver BC, Canada and you irrevocably submit to the

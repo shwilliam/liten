@@ -39,9 +39,9 @@ const LoginPage = () => {
           onSubmit={handleSubmit}
         >
           <div className="pt-3 pb-6 text-center">
-            <h2 className="text-center font-semibold text-4xl lg:text-5xl tracking-tight my-2">
+            <h1 className="text-center font-semibold text-4xl lg:text-5xl tracking-tight my-2">
               Welcome!
-            </h2>
+            </h1>
             <p className="text-gray-700">
               Get started by entering your email&nbsp;below
             </p>

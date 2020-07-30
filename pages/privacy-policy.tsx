@@ -4,7 +4,7 @@ const LAST_UPDATE_DATE = '27 July 2020'
 
 const PrivacyPolicyPage = () => (
   <Layout title="privacy policy ~ liten">
-    <h2>Privacy Policy</h2>
+    <h1>Privacy Policy</h1>
 
     <p>
       Your privacy is important to us. It is liten&apos;s policy to respect your

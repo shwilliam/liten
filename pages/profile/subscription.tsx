@@ -5,7 +5,7 @@ import {validateHeaderToken} from '../../utils'
 
 const ProfilePage = () => (
   <Layout title="subscription ~ liten" isAuthenticated={true}>
-    <h2>Subscribed!</h2>
+    <h1>Subscribed!</h1>
   </Layout>
 )
 

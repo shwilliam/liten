@@ -1,8 +1,8 @@
 import Alert from '@reach/alert'
+import {useState} from 'react'
 import {useCopyToClipboard} from 'react-use'
 
-import {removeURLScheme, removeWebHostString} from '../utils'
-import {useState} from 'react'
+import {removeURLScheme, removeWebHostString} from '../lib'
 
 type ItemProps = {
   slug: string

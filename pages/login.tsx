@@ -1,35 +1,28 @@
-import {Magic} from 'magic-sdk'
 import {useRouter} from 'next/dist/client/router'
 import Link from 'next/link'
-import {useState} from 'react'
+import {useState, ChangeEvent} from 'react'
 
+import {logInWithEmail} from '../lib'
 import Input from '../components/input'
 import Layout from '../components/site-layout'
 
 const LoginPage = () => {
-  const router = useRouter()
   const [email, setEmail] = useState('')
+  const router = useRouter()
 
   const handleSubmit = async (event: any) => {
     event.preventDefault()
-    const magicPublicKey = process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY
-    if (!magicPublicKey) return
+    const authRequest = await logInWithEmail(email)
 
-    const did = await new Magic(magicPublicKey).auth.loginWithMagicLink({email})
-
-    const authRequest = await fetch('/api/login', {
-      method: 'POST',
-      headers: {Authorization: `Bearer ${did}`},
-    })
-
-    if (authRequest.ok) {
+    if (authRequest?.ok) {
       router.push('/#dashboard')
     } else {
       alert('Error authenticating')
     }
   }
 
-  const handleChange = (event: any) => setEmail(event.target.value)
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
+    setEmail(event.target.value)
 
   return (
     <Layout title="sign up ~ liten">

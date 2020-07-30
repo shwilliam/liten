@@ -1,7 +1,7 @@
 import {PrismaClient} from '@prisma/client'
 import {NextApiRequest, NextApiResponse} from 'next'
 
-import {validateHeaderToken} from '../../../utils'
+import {validateHeaderToken} from '../../../lib'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const prisma = new PrismaClient({log: ['query']})
@@ -31,8 +31,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         })
 
     res.status(201).json({link})
-  } catch (err) {
-    res.status(500).json({error: {message: err.message}})
+  } catch (error) {
+    console.error({error})
+    res.status(500).json({error: {message: error.message}})
   } finally {
     await prisma.disconnect()
   }

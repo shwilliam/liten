@@ -2,7 +2,7 @@ import {PrismaClient} from '@prisma/client'
 import {NextApiRequest, NextApiResponse} from 'next'
 import nc from 'next-connect'
 
-import {validateHeaderToken} from '../../../utils'
+import {validateHeaderToken} from '../../../lib'
 
 const handler = nc<NextApiRequest, NextApiResponse>()
 
@@ -22,8 +22,9 @@ handler.post(async (req, res) => {
     const user = await prisma.user.findOne({where: {email}})
 
     res.json(user)
-  } catch (err) {
-    res.status(500).json({error: {message: err.message}})
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({error: {message: error.message}})
   } finally {
     await prisma.disconnect()
   }

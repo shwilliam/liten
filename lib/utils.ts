@@ -1,24 +1,27 @@
 import cookie from 'cookie'
+import {IncomingHttpHeaders} from 'http'
 import jwt from 'jsonwebtoken'
 
 import {AuthToken} from '../interfaces'
 
-export const removeRegexFromString = (pattern: RegExp) => (
-  stringToSearch: string,
-) => stringToSearch.replace(pattern, '')
+export const removeRegexFromString = (pattern: RegExp) => (string: string) =>
+  string.replace(pattern, '')
 
 export const removeURLScheme = removeRegexFromString(/^https?:\/\//g)
 
 export const removeWebHostString = removeRegexFromString(/^www./g)
 
-export const omitNull = (obj: any) => {
-  Object.keys(obj)
-    .filter(k => obj[k] === null)
-    .forEach(k => delete obj[k])
-  return obj
+export const omitNull = (obj: {[key: string]: any}) => {
+  const objCopy = {...obj}
+
+  Object.keys(objCopy)
+    .filter(k => objCopy[k] === null)
+    .forEach(k => delete objCopy[k])
+
+  return objCopy
 }
 
-export const validateHeaderToken = (headers: any) => {
+export const validateHeaderToken = (headers: IncomingHttpHeaders) => {
   try {
     const {token} = cookie.parse(headers?.cookie || '')
     if (!token || !process.env.JWT_SECRET) return null

@@ -5,15 +5,11 @@ import {NextApiRequest, NextApiResponse} from 'next'
 import nc from 'next-connect'
 import Stripe from 'stripe'
 
-import {validateHeaderToken} from '../../../utils'
+import {validateHeaderToken} from '../../../lib'
 
-const {STRIPE_SECRET_KEY} = process.env
-
-const stripe =
-  STRIPE_SECRET_KEY &&
-  (new Stripe(STRIPE_SECRET_KEY, {
-    apiVersion: '2020-03-02',
-  }) as any)
+const stripe: any = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2020-03-02',
+})
 
 const upload = multer({dest: '/tmp'})
 const handler = nc<NextApiRequest, NextApiResponse>()
@@ -47,8 +43,8 @@ handler.post(upload.single('image'), async (req, res) => {
       return
     }
 
-    const customer = await stripe.customers.retrieve(customerId)
-    const isActiveSubscriber = customer.subscriptions.data.some(
+    const customer = await stripe?.customers.retrieve(customerId)
+    const isActiveSubscriber = customer?.subscriptions.data.some(
       (sub: any) =>
         sub.plan.id === process.env.STRIPE_SUBSCRIPTION_PRODUCT &&
         sub.plan.active === true,
@@ -68,8 +64,9 @@ handler.post(upload.single('image'), async (req, res) => {
     })
 
     res.json({image})
-  } catch (err) {
-    res.status(500).json({error: {message: err.message}})
+  } catch (error) {
+    console.error({error})
+    res.status(500).json({error: {message: error.message}})
   } finally {
     await prisma.disconnect()
   }

@@ -7,8 +7,9 @@ export default async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     const links = await prisma.link.findMany()
     res.json({links})
-  } catch (err) {
-    res.status(500).json({error: {message: err.message}})
+  } catch (error) {
+    console.error({error})
+    res.status(500).json({error: {message: error.message}})
   } finally {
     await prisma.disconnect()
   }

@@ -45,8 +45,9 @@ handler.post(async (req, res) => {
     )
 
     res.json(user)
-  } catch (err) {
-    res.status(500).json({error: {message: err.message}})
+  } catch (error) {
+    console.error({error})
+    res.status(500).json({error: {message: error.message}})
   } finally {
     await prisma.disconnect()
   }

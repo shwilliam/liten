@@ -2,15 +2,11 @@ import {NextApiRequest, NextApiResponse} from 'next'
 import nc from 'next-connect'
 import Stripe from 'stripe'
 
-import {validateHeaderToken} from '../../../../utils'
+import {validateHeaderToken} from '../../../../lib'
 
-const {STRIPE_SECRET_KEY} = process.env
-
-const stripe =
-  STRIPE_SECRET_KEY &&
-  (new Stripe(STRIPE_SECRET_KEY, {
-    apiVersion: '2020-03-02',
-  }) as any)
+const stripe: any = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2020-03-02',
+})
 
 const handler = nc<NextApiRequest, NextApiResponse>()
 

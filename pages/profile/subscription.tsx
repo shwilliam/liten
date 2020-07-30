@@ -1,7 +1,7 @@
 import {GetServerSideProps} from 'next'
 
 import Layout from '../../components/site-layout'
-import {validateHeaderToken} from '../../utils'
+import {validateHeaderToken} from '../../lib'
 
 const ProfilePage = () => (
   <Layout title="subscription ~ liten" isAuthenticated={true}>

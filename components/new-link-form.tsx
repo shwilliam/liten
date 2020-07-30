@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {ChangeEvent, FormEvent, useEffect, useState} from 'react'
 import {useMutation} from 'react-query'
 import {useLocalStorage} from 'react-use'
 
@@ -6,7 +6,7 @@ import {Link} from '../interfaces'
 import LinkList from './link-list'
 
 const createLinkRequest = async (data: any) => {
-  const response = await fetch('/api/links/_create', {
+  const response = await fetch('/api/links/create', {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
@@ -29,11 +29,13 @@ const NewLinkForm = () => {
   )
   const [slug, setSlug] = useState('')
   const [target, setTarget] = useState('')
-  const handleSlugChange = (e: any) => setSlug(e.target.value)
-  const handleTargetChange = (e: any) => setTarget(e.target.value)
+  const handleSlugChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setSlug(e.target.value)
+  const handleTargetChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setTarget(e.target.value)
   const [createLink, {isLoading}] = useCreateLink()
 
-  const handleLinkSubmit = async (event: any) => {
+  const handleLinkSubmit = async (event: FormEvent) => {
     event.preventDefault()
     const slugValue = slug.trim()
     const targetValue = target.trim()

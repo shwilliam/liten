@@ -1,7 +1,7 @@
 import {useMutation} from 'react-query'
 
 const updateLinkRequest = async (data: any) => {
-  const response = await fetch('/api/links/_edit', {
+  const response = await fetch('/api/links/edit', {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {

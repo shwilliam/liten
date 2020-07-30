@@ -1,6 +1,6 @@
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@reach/tabs'
 import {GetServerSideProps} from 'next'
-import {FormEvent, ReactNode, useReducer} from 'react'
+import {ChangeEvent, FormEvent, ReactNode, useReducer} from 'react'
 
 import Input from '../../components/input'
 import Label from '../../components/label'
@@ -17,7 +17,7 @@ import {
   removeURLScheme,
   removeWebHostString,
   validateHeaderToken,
-} from '../../utils'
+} from '../../lib'
 
 const StyledTab = ({children}: {children?: ReactNode}) => (
   <Tab className="edit-tab no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs md:text-base py-3 mr-3 md:mr-8 hover:opacity-50">
@@ -26,13 +26,17 @@ const StyledTab = ({children}: {children?: ReactNode}) => (
 )
 
 const InputWrapper = ({
+  className = '',
   first = false,
   children,
 }: {
+  className?: string
   first?: boolean
   children?: ReactNode
 }) => (
-  <div className={`w-full flex-grow my-1 ${first ? 'sm:mr-2' : ''}`}>
+  <div
+    className={`w-full flex-grow my-1 ${first ? 'sm:mr-2' : ''} ${className}`}
+  >
     {children}
   </div>
 )
@@ -44,8 +48,8 @@ type Props = {
 }
 
 type LinkEditFormAction = {
-  type: string
-  payload: any
+  type: 'INPUT'
+  payload: {name: string; value: string}
 }
 
 const linkEditFormReducer = (form: LinkMeta, action: LinkEditFormAction) => {
@@ -85,12 +89,14 @@ const LinkEditPage = ({link, slug, token}: Props) => {
     ...omitNull(link),
   })
 
-  const handleInput = (e: any) => dispatch({type: 'INPUT', payload: e.target})
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) =>
+    dispatch({type: 'INPUT', payload: e.target})
 
-  const handleFileInput = async (e: any) => {
+  const handleFileInput = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!isActiveSubscriber) return
     try {
-      const file = e.target.files[0]
+      const files = e.target.files as FileList
+      const file = files[0]
 
       if (!file) return
       e.persist()
@@ -117,8 +123,8 @@ const LinkEditPage = ({link, slug, token}: Props) => {
           value: image.secure_url,
         },
       })
-    } catch (err) {
-      console.error({err})
+    } catch (error) {
+      console.error({error})
       // TODO
     }
   }

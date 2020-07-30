@@ -1,5 +1,3 @@
-import {Magic} from '@magic-sdk/admin'
-import jwt from 'jsonwebtoken'
 import cookie from 'cookie'
 import {NextApiRequest, NextApiResponse} from 'next'
 import nc from 'next-connect'
@@ -21,7 +19,7 @@ handler.post(async (_req, res) => {
 
     res.end()
   } catch (error) {
-    console.log({error})
+    console.error({error})
     res.status(500).json({error: {message: error.message}})
   }
 })

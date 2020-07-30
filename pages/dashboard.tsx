@@ -1,7 +1,9 @@
+import {GetServerSideProps} from 'next'
+
 import LinkList from '../components/link-list'
 import Layout from '../components/site-layout'
 import {useViewerLinks} from '../hooks'
-import {validateHeaderToken} from '../utils'
+import {validateHeaderToken} from '../lib'
 
 const DashboardPage = () => {
   const links = useViewerLinks()
@@ -24,7 +26,7 @@ const DashboardPage = () => {
   )
 }
 
-export const getServerSideProps = async (ctx: any) => {
+export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
   const token = validateHeaderToken(ctx.req.headers)
   if (!token)
     ctx.res

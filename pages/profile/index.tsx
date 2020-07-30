@@ -1,5 +1,6 @@
 import {loadStripe} from '@stripe/stripe-js'
 import {GetServerSideProps} from 'next'
+import {useRouter} from 'next/router'
 
 import Layout from '../../components/site-layout'
 import {useCreateSubscription, useViewerSubscription} from '../../hooks'
@@ -10,6 +11,7 @@ const stripePromise =
   NEXT_PUBLIC_STRIPE_PUBLIC_KEY && loadStripe(NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
 
 const ProfilePage = () => {
+  const router = useRouter()
   const viewerSubscription = useViewerSubscription()
   const createSubscription = useCreateSubscription()
 
@@ -29,8 +31,8 @@ const ProfilePage = () => {
 
       if (error) {
       } // TODO
-    } catch (err) {
-      if (err.message.match(/already subscribed/gi))
+    } catch (error) {
+      if (error.message.match(/already subscribed/gi))
         console.error(
           'Subscription request cancelled. User already has an active subscription.',
         )
@@ -43,15 +45,28 @@ const ProfilePage = () => {
         method: 'DELETE',
       })
 
-      if (typeof window !== 'undefined') window.location.reload(false)
-    } catch (err) {
-      console.log(err)
+      router.reload()
+    } catch (error) {
+      console.log({error})
+    } //TODO
+  }
+
+  const logout = async () => {
+    try {
+      await fetch('/api/logout', {
+        method: 'POST',
+      })
+
+      router.push('/')
+    } catch (error) {
+      console.log({error})
     } //TODO
   }
 
   return (
     <Layout title="profile ~ liten" isAuthenticated={true}>
       <h2>Profile</h2>
+      <button onClick={logout}>Log out</button>
 
       {!viewerSubscription ? (
         'Loading subscription...'

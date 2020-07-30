@@ -1,13 +1,17 @@
 import {useRouter} from 'next/dist/client/router'
 import Link from 'next/link'
 import {useState, ChangeEvent} from 'react'
+import {useLocalStorage} from 'react-use'
 
 import {logInWithEmail} from '../lib'
 import Input from '../components/input'
 import Layout from '../components/site-layout'
+import {useClaimLocalLinks} from '../hooks'
 
 const LoginPage = () => {
   const [email, setEmail] = useState('')
+  const [claimLocalLinks] = useClaimLocalLinks()
+  const [localCreatedLinks] = useLocalStorage('created_links')
   const router = useRouter()
 
   const handleSubmit = async (event: any) => {
@@ -15,6 +19,11 @@ const LoginPage = () => {
     const authRequest = await logInWithEmail(email)
 
     if (authRequest?.ok) {
+      const localLinks = JSON.parse(localCreatedLinks as string)
+      const localLinksIds = localLinks
+        .filter((link: any) => !link.authorId)
+        .map((link: any) => link.id)
+      await claimLocalLinks({links: localLinksIds})
       router.push('/#dashboard')
     } else {
       alert('Error authenticating')

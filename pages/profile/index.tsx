@@ -1,7 +1,9 @@
 import {loadStripe} from '@stripe/stripe-js'
+import {GetServerSideProps} from 'next'
 
 import Layout from '../../components/site-layout'
 import {useCreateSubscription, useViewerSubscription} from '../../hooks'
+import {validateHeaderToken} from '../../utils'
 
 const {NEXT_PUBLIC_STRIPE_PUBLIC_KEY} = process.env
 const stripePromise =
@@ -53,6 +55,19 @@ const ProfilePage = () => {
       )}
     </Layout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const token = validateHeaderToken(ctx.req.headers)
+
+  if (!token)
+    ctx.res
+      .writeHead(301, {
+        Location: '/login',
+      })
+      .end()
+
+  return {props: {}}
 }
 
 export default ProfilePage

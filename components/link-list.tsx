@@ -8,10 +8,9 @@ type ItemProps = {
   slug: string
   target: string
   onCopy: (message: string) => void
-  disableCopy?: boolean
 }
 
-const LinkListItem = ({slug, target, onCopy, disableCopy}: ItemProps) => {
+const LinkListItem = ({slug, target, onCopy}: ItemProps) => {
   const shortLink = `https://liten.xyz/${slug}`
   const handleCopy = () => onCopy(shortLink)
 
@@ -46,9 +45,7 @@ const LinkListItem = ({slug, target, onCopy, disableCopy}: ItemProps) => {
 
       <div className="flex sm:flex-row-reverse">
         <a
-          className={`text-center bg-indigo-500 text-white hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6 ${
-            disableCopy ? 'disabled' : ''
-          }`}
+          className="text-center bg-indigo-500 text-white hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6"
           href={`/${slug}/edit`}
         >
           Edit
@@ -71,10 +68,9 @@ type LinkSummary = {
 
 type Props = {
   links: LinkSummary[]
-  isAuthenticated?: boolean
 }
 
-const LinkList = ({links = [], isAuthenticated = false}: Props) => {
+const LinkList = ({links = []}: Props) => {
   const [, copyToClipboard] = useCopyToClipboard()
   const [copiedAlerts, setCopiedAlerts] = useState<string[]>([])
   const handleCopyToClipboard = (message: string) => {
@@ -98,7 +94,6 @@ const LinkList = ({links = [], isAuthenticated = false}: Props) => {
             slug={slug}
             target={target}
             onCopy={handleCopyToClipboard}
-            disableCopy={!isAuthenticated}
           />
         ))}
       </ul>

@@ -1,17 +1,17 @@
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@reach/tabs'
 import {GetServerSideProps} from 'next'
-import {FormEvent, useReducer, ReactNode} from 'react'
+import {FormEvent, ReactNode, useReducer} from 'react'
 
+import Input from '../../components/input'
+import Label from '../../components/label'
 import {
   GooglePreview,
   OGPreview,
   TwitterPreview,
 } from '../../components/share-previews'
 import Layout from '../../components/site-layout'
-import Input from '../../components/input'
-import Label from '../../components/label'
-import {useUpdateLink} from '../../hooks'
-import {Link, LinkMeta, AuthToken} from '../../interfaces'
+import {useUpdateLink, useViewerSubscription} from '../../hooks'
+import {AuthToken, Link, LinkMeta} from '../../interfaces'
 import {
   omitNull,
   removeURLScheme,
@@ -77,6 +77,9 @@ const defaultLinkData = {
 
 const LinkEditPage = ({link, slug, token}: Props) => {
   const [updateLink, {isLoading}] = useUpdateLink()
+  const viewerSubscription = useViewerSubscription()
+  const isActiveSubscriber =
+    viewerSubscription?.subscription?.status === 'active'
   const [form, dispatch] = useReducer(linkEditFormReducer, {
     ...defaultLinkData,
     ...omitNull(link),
@@ -85,6 +88,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
   const handleInput = (e: any) => dispatch({type: 'INPUT', payload: e.target})
 
   const handleFileInput = async (e: any) => {
+    if (!isActiveSubscriber) return
     try {
       const file = e.target.files[0]
 
@@ -220,7 +224,11 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                     </InputWrapper>
                   </div>
 
-                  <div className="sm:flex w-full">
+                  <div
+                    className={`sm:flex w-full ${
+                      isActiveSubscriber ? '' : 'disabled'
+                    }`}
+                  >
                     <InputWrapper first>
                       <Label htmlFor="twitter_img_src">Image</Label>
                       <Input
@@ -230,6 +238,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                         type="file"
                         accept="image/png, image/jpeg"
                         multiple={false}
+                        disabled={!isActiveSubscriber}
                       />
                     </InputWrapper>
 
@@ -326,7 +335,9 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                       />
                     </InputWrapper>
 
-                    <InputWrapper>
+                    <InputWrapper
+                      className={isActiveSubscriber ? '' : 'disabled'}
+                    >
                       <Label htmlFor="og_img_src">Image</Label>
                       <Input
                         onChange={handleFileInput}
@@ -335,6 +346,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                         type="file"
                         accept="image/png, image/jpeg"
                         multiple={false}
+                        disabled={!isActiveSubscriber}
                       />
                     </InputWrapper>
                   </div>
@@ -376,7 +388,9 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                     </InputWrapper>
                   </div>
 
-                  <InputWrapper>
+                  <InputWrapper
+                    className={isActiveSubscriber ? '' : 'disabled'}
+                  >
                     <Label htmlFor="google_img_src">Image</Label>
                     <Input
                       onChange={handleFileInput}
@@ -385,6 +399,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                       type="file"
                       accept="image/png, image/jpeg"
                       multiple={false}
+                      disabled={!isActiveSubscriber}
                     />
                   </InputWrapper>
                 </TabPanel>
@@ -409,13 +424,6 @@ const LinkEditPage = ({link, slug, token}: Props) => {
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const token = validateHeaderToken(ctx.req.headers)
-
-  if (!token)
-    ctx.res
-      .writeHead(301, {
-        Location: '/login',
-      })
-      .end()
 
   const slug = ctx?.params?.slug
   const linkRes = await fetch(`${process.env.BASE_URL}/api/links/${slug}`)

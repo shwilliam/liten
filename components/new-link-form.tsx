@@ -20,7 +20,7 @@ const createLinkRequest = async (data: any) => {
 
 const useCreateLink = () => useMutation(createLinkRequest)
 
-const NewLinkForm = ({isAuthenticated = false}) => {
+const NewLinkForm = () => {
   const [localCreatedLinks, setLocalCreatedLinks] = useLocalStorage(
     'created_links',
   )
@@ -102,7 +102,7 @@ const NewLinkForm = ({isAuthenticated = false}) => {
         </button>
       </form>
 
-      <LinkList links={createdLinks} isAuthenticated={isAuthenticated} />
+      <LinkList links={createdLinks} />
     </>
   )
 }

@@ -17,7 +17,7 @@ const IndexPage = ({token}: Props) => {
 
       <div className="bg-orange-600 py-8 pb-10 sm:py-10 sm:pb-12">
         <div className="container px-4 sm:px-8 lg:my-8 xl:px-20 mx-auto">
-          <NewLinkForm isAuthenticated={!!token} />
+          <NewLinkForm />
         </div>
       </div>
     </Layout>

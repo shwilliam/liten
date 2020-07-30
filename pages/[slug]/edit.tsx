@@ -13,6 +13,7 @@ import Label from '../../components/label'
 import {useUpdateLink} from '../../hooks'
 import {Link, LinkMeta, AuthToken} from '../../interfaces'
 import {
+  omitNull,
   removeURLScheme,
   removeWebHostString,
   validateHeaderToken,
@@ -61,24 +62,24 @@ const defaultLinkData = {
   desc: '', // <160 chars
   og_title: '',
   og_desc: '',
-  og_img_src: '',
+  og_img_src: 'http://microgradient.herokuapp.com/timpope/200,100.png',
   og_site: '',
   twitter_title: '',
   twitter_desc: '', // <200 chars
   twitter_img_alt: '',
-  twitter_img_src: '', // >280x150
+  twitter_img_src: 'http://microgradient.herokuapp.com/timpope/200,100.png', // >280x150
   twitter_site_acc: '',
   twitter_author_acc: '',
   google_title: '',
   google_desc: '',
-  google_img_src: '',
+  google_img_src: 'http://microgradient.herokuapp.com/timpope/200,100.png',
 }
 
 const LinkEditPage = ({link, slug, token}: Props) => {
   const [updateLink, {isLoading}] = useUpdateLink()
   const [form, dispatch] = useReducer(linkEditFormReducer, {
     ...defaultLinkData,
-    ...link,
+    ...omitNull(link),
   })
 
   const handleInput = (e: any) => dispatch({type: 'INPUT', payload: e.target})

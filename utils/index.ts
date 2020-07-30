@@ -11,6 +11,13 @@ export const removeURLScheme = removeRegexFromString(/^https?:\/\//g)
 
 export const removeWebHostString = removeRegexFromString(/^www./g)
 
+export const omitNull = (obj: any) => {
+  Object.keys(obj)
+    .filter(k => obj[k] === null)
+    .forEach(k => delete obj[k])
+  return obj
+}
+
 export const validateHeaderToken = (headers: any) => {
   try {
     const {token} = cookie.parse(headers?.cookie || '')

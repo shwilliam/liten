@@ -69,17 +69,30 @@ const Layout = ({
               </Link>
             </li>
             {isAuthenticated && (
-              <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">
-                <Link href="/profile">
-                  <a
-                    className={`active border-orange-600 hover:opacity-75 ${
-                      router.route === '/profile' && 'border-b-2'
-                    }`}
-                  >
-                    profile
-                  </a>
-                </Link>
-              </li>
+              <>
+                <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">
+                  <Link href="/dashboard">
+                    <a
+                      className={`active border-orange-600 hover:opacity-75 ${
+                        router.route === '/dashboard' && 'border-b-2'
+                      }`}
+                    >
+                      dashboard
+                    </a>
+                  </Link>
+                </li>
+                <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">
+                  <Link href="/profile">
+                    <a
+                      className={`active border-orange-600 hover:opacity-75 ${
+                        router.route === '/profile' && 'border-b-2'
+                      }`}
+                    >
+                      profile
+                    </a>
+                  </Link>
+                </li>
+              </>
             )}
             {!isAuthenticated && (
               <li className="block mt-4 sm:inline-block sm:mt-0 mr-4">

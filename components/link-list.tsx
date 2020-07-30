@@ -83,10 +83,6 @@ const LinkList = ({links = []}: Props) => {
 
   return links?.length ? (
     <>
-      <h2 className="font-semibold text-4xl lg:text-5xl tracking-tight text-white mt-6 lg:mt-10 xl:mt-12 mb-2">
-        Your Links
-      </h2>
-
       <ul>
         {links.map(({slug, target}) => (
           <LinkListItem

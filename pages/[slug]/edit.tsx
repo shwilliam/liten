@@ -11,7 +11,7 @@ import Layout from '../../components/site-layout'
 import Input from '../../components/input'
 import Label from '../../components/label'
 import {useUpdateLink} from '../../hooks'
-import {Link, LinkMeta} from '../../interfaces'
+import {Link, LinkMeta, AuthToken} from '../../interfaces'
 import {
   removeURLScheme,
   removeWebHostString,
@@ -39,6 +39,7 @@ const InputWrapper = ({
 type Props = {
   link: Link
   slug: string
+  token: AuthToken
 }
 
 type LinkEditFormAction = {
@@ -73,7 +74,7 @@ const defaultLinkData = {
   google_img_src: '',
 }
 
-const LinkEditPage = ({link, slug}: Props) => {
+const LinkEditPage = ({link, slug, token}: Props) => {
   const [updateLink, {isLoading}] = useUpdateLink()
   const [form, dispatch] = useReducer(linkEditFormReducer, {
     ...defaultLinkData,
@@ -124,7 +125,7 @@ const LinkEditPage = ({link, slug}: Props) => {
   }
 
   return (
-    <Layout title={`edit ${slug} ~ liten`}>
+    <Layout title={`edit ${slug} ~ liten`} isAuthenticated={!!token}>
       <div className="py-8 pb-10 sm:py-10 sm:pb-12">
         <div className="container px-4 sm:px-8 lg:my-8 xl:px-20 mx-auto">
           <a
@@ -420,7 +421,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
   const linkJSON = await linkRes.json()
   const {link} = linkJSON
 
-  return {props: {link, slug}}
+  return {props: {link, slug, token}}
 }
 
 export default LinkEditPage

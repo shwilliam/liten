@@ -1,9 +1,15 @@
 import Link from 'next/link'
 
 import Layout from '../components/site-layout'
+import {AuthToken} from '../interfaces'
+import {validateHeaderToken} from '../utils'
 
-const AboutPage = () => (
-  <Layout title="about ~ liten">
+type Props = {
+  token: AuthToken
+}
+
+const AboutPage = ({token}: Props) => (
+  <Layout title="about ~ liten" isAuthenticated={!!token}>
     <h2>About</h2>
     <p>
       <Link href="/">
@@ -12,5 +18,10 @@ const AboutPage = () => (
     </p>
   </Layout>
 )
+
+export const getServerSideProps = async (ctx: any) => {
+  const token = validateHeaderToken(ctx.req.headers)
+  return {props: {token}}
+}
 
 export default AboutPage

@@ -39,14 +39,9 @@ const ProfilePage = () => {
 
   const doUnsubscribe = async () => {
     try {
-      if (!viewerSubscription?.subscription) return
-
-      await fetch(
-        `/api/checkout/customer/${viewerSubscription.subscription.id}`,
-        {
-          method: 'DELETE',
-        },
-      )
+      await fetch('/api/checkout/unsubscribe', {
+        method: 'DELETE',
+      })
 
       if (typeof window !== 'undefined') window.location.reload(false)
     } catch (err) {

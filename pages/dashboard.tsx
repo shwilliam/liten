@@ -2,7 +2,7 @@ import {GetServerSideProps} from 'next'
 import LinkList from '../components/link-list'
 import Layout from '../components/site-layout'
 import SummaryCard from '../components/summary-card'
-import {useViewerLinks} from '../hooks'
+import {useViewerLinks, useViewerLinksViews} from '../hooks'
 import {AuthToken} from '../interfaces'
 import {validateHeaderToken} from '../lib'
 
@@ -12,6 +12,12 @@ type Props = {
 
 const DashboardPage = ({token}: Props) => {
   const links = useViewerLinks()
+  const linksViews = useViewerLinksViews()
+  const linksCount = links.status === 'success' ? links.data.links.length : '?'
+  const totalCustomPreviews =
+    typeof linksCount === 'number' ? linksCount * 3 : '?'
+  const totalLinkViews =
+    linksViews.status === 'success' ? linksViews.data.views : '?'
 
   return (
     <Layout title="dashboard ~ liten" isAuthenticated>
@@ -27,7 +33,11 @@ const DashboardPage = ({token}: Props) => {
 
         <section className="container px-4 sm:px-8 my-12 md:my-16 lg:my-24 xl:px-20 mx-auto">
           <div className="flex justify-around md:mx-auto overflow-visible">
-            <SummaryCard label="Short links" labelShort="Links" figure={12}>
+            <SummaryCard
+              label="Short links"
+              labelShort="Links"
+              figure={linksCount}
+            >
               <svg
                 className="p-2 h-12 w-12 sm:h-16 sm:w-16 md:h-24 md:w-24"
                 xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +57,7 @@ const DashboardPage = ({token}: Props) => {
             </SummaryCard>
 
             <SummaryCard
-              figure={28}
+              figure={totalCustomPreviews}
               label="Custom previews"
               labelShort="Previews"
             >
@@ -70,7 +80,11 @@ const DashboardPage = ({token}: Props) => {
               </svg>
             </SummaryCard>
 
-            <SummaryCard figure={128} label="Link views" labelShort="Views">
+            <SummaryCard
+              figure={totalLinkViews}
+              label="Link views"
+              labelShort="Views"
+            >
               <svg
                 className="p-2 h-12 w-12 sm:h-16 sm:w-16 md:h-24 md:w-24"
                 xmlns="http://www.w3.org/2000/svg"

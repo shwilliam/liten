@@ -15,6 +15,28 @@ handler.get(async (req, res) => {
       return
     }
 
+    const views = await prisma.view.count({
+      where: {link: {slug}}
+    })
+
+    res.json({views})
+  } catch (error) {
+    console.error({error})
+    res.status(500).json({error: {message: error.message}})
+  } finally {
+    await prisma.disconnect()
+  }
+}).post(async (req, res) => {
+  const prisma = new PrismaClient({log: ['query']})
+
+  try {
+    const {slug} = req.query
+
+    if (!slug || typeof slug !== 'string') {
+      res.status(400).json({error: {message: 'No link found'}})
+      return
+    }
+
     const updatedLink = await prisma.view.create({
       data: {link: {connect: {slug}}},
     })

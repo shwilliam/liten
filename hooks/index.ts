@@ -1,6 +1,7 @@
 export * from './use-claim-local-links'
 export * from './use-create-sub-session'
 export * from './use-create-subscription'
+export * from './use-link-views'
 export * from './use-sub-session'
 export * from './use-update-link'
 export * from './use-viewer'

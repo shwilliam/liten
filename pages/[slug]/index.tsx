@@ -30,7 +30,7 @@ const LinkPage = ({link}: Props) => {
 
   useMount(() => {
     window?.location.replace(link.target)
-    fetch(`/api/links/${slug}/view`)
+    fetch(`/api/links/${slug}/view`, {method: 'POST'})
   })
 
   return (

@@ -9,16 +9,14 @@ handler.get(async (req, res) => {
 
   try {
     const {slug} = req.query
-    const link = await prisma.link.findOne({where: {slug: slug as string}})
 
-    if (!link) {
+    if (!slug || typeof slug !== 'string') {
       res.status(400).json({error: {message: 'No link found'}})
       return
     }
 
-    const updatedLink = await prisma.link.update({
-      where: {slug: slug as string},
-      data: {views: link.views + 1},
+    const updatedLink = await prisma.view.create({
+      data: {link: {connect: {slug}}},
     })
 
     res.json({link: updatedLink})

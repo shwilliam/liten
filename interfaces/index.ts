@@ -29,3 +29,9 @@ export type LinkMeta = {
   google_desc: string
   google_img_src: string
 }
+
+export type LinkView = {
+  id: number
+  linkId: number
+  createdAt: string
+}

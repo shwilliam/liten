@@ -13,7 +13,7 @@ type Props = {
 const DashboardPage = ({token}: Props) => {
   const links = useViewerLinks()
   const linksViews = useViewerLinksViews()
-  const linksCount = links.status === 'success' ? links.data.links.length : '?'
+  const linksCount = links.status === 'success' ? links.data.links?.length : '?'
   const totalCustomPreviews =
     typeof linksCount === 'number' ? linksCount * 3 : '?'
   const totalLinkViews =
@@ -112,7 +112,7 @@ const DashboardPage = ({token}: Props) => {
 
           {links.status === 'loading' && <p>Fetching links...</p>}
           {links.status === 'success' && links.data?.links && (
-            <LinkList links={links.data.links} />
+            <LinkList links={links.data.links} stats />
           )}
         </section>
       </div>

@@ -28,7 +28,8 @@ const LinkPage = ({link}: Props) => {
     google_img_src,
   } = link
 
-  useMount(() => {
+  useMount(async () => {
+    await fetch(`/api/links/${slug}/view`)
     window?.location.replace(link.target)
   })
 

@@ -39,7 +39,7 @@ const LinkPage = ({link}: Props) => {
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
       {/* < 50 chars */}
-      <title>{title}</title>
+      <title>{title ?? 'liten.xyz'}</title>
       <meta name="title" content={title} />
       {/* < 160 chars */}
       <meta name="description" content={desc} />

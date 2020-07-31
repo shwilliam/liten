@@ -1,7 +1,7 @@
-import {ReactNode, useState} from 'react'
-import Link from 'next/link'
 import Head from 'next/head'
-import {useRouter} from 'next/dist/client/router'
+import Link from 'next/link'
+import {useRouter} from 'next/router'
+import {ReactNode, useState} from 'react'
 
 type Props = {
   children?: ReactNode

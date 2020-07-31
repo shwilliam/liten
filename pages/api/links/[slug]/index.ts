@@ -1,7 +1,10 @@
 import {PrismaClient} from '@prisma/client'
 import {NextApiRequest, NextApiResponse} from 'next'
+import nc from 'next-connect'
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = nc<NextApiRequest, NextApiResponse>()
+
+handler.get(async (req, res) => {
   const prisma = new PrismaClient({log: ['query']})
 
   try {
@@ -14,4 +17,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } finally {
     await prisma.disconnect()
   }
-}
+})
+
+export default handler

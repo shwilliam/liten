@@ -3,6 +3,7 @@ import {GetServerSideProps} from 'next'
 import CookiesDisclaimer from '../components/cookies-disclaimer'
 import Hero from '../components/hero'
 import NewLinkForm from '../components/new-link-form'
+import PricingTable from '../components/pricing-table'
 import Layout from '../components/site-layout'
 import {AuthToken} from '../interfaces'
 import {validateHeaderToken} from '../lib'
@@ -24,6 +25,15 @@ const IndexPage = ({token}: Props) => (
           <NewLinkForm />
         </div>
       </div>
+
+      {!token && (
+        <section className="mx-auto container mb-12">
+          <h2 className="text-center font-semibold text-4xl lg:text-5xl tracking-tight mt-24 mb-8 md:mb-2">
+            Pricing
+          </h2>
+          <PricingTable />
+        </section>
+      )}
     </Layout>
   </>
 )

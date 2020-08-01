@@ -29,6 +29,7 @@ const NewLinkForm = () => {
   )
   const [slug, setSlug] = useState('')
   const [target, setTarget] = useState('')
+  const [error, setError] = useState()
   const handleSlugChange = (e: ChangeEvent<HTMLInputElement>) =>
     setSlug(e.target.value)
   const handleTargetChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -46,9 +47,14 @@ const NewLinkForm = () => {
     }
 
     const link = await createLink({slug: slugValue, target: targetValue})
-    setSlug('')
-    setTarget('')
-    setCreatedLinks(s => [link, ...s])
+
+    if (link) {
+      setSlug('')
+      setTarget('')
+      setCreatedLinks(s => [link, ...s])
+    } else {
+      setError('Slug already in use.')
+    }
   }
 
   useEffect(() => {
@@ -103,6 +109,7 @@ const NewLinkForm = () => {
           Generate
         </button>
       </form>
+      {error && <p className="text-white my-2">{error}</p>}
 
       {createdLinks?.length > 0 && (
         <>

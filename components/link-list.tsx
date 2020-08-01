@@ -8,7 +8,7 @@ type ItemProps = {
   slug: string
   target: string
   onCopy: (message: string) => void
-  stats: string
+  stats?: boolean
 }
 
 const LinkListItem = ({slug, target, onCopy, stats = false}: ItemProps) => {
@@ -104,7 +104,7 @@ type LinkSummary = {
 
 type Props = {
   links: LinkSummary[]
-  stats: boolean
+  stats?: boolean
 }
 
 const LinkList = ({links = [], stats = false}: Props) => {

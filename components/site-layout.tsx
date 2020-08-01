@@ -57,17 +57,6 @@ const Layout = ({
               isOpen ? 'block' : 'hidden'
             } flex-grow sm:flex sm:items-center sm:w-auto justify-end`}
           >
-            <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">
-              <Link href="/about">
-                <a
-                  className={`active border-orange-600 hover:opacity-75 ${
-                    router.route === '/about' && 'border-b-2'
-                  }`}
-                >
-                  about
-                </a>
-              </Link>
-            </li>
             {isAuthenticated && (
               <>
                 <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">

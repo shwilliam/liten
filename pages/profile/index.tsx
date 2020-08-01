@@ -2,7 +2,6 @@ import {loadStripe} from '@stripe/stripe-js'
 import {GetServerSideProps} from 'next'
 import {useRouter} from 'next/router'
 
-import PageHeader from '../../components/page-header'
 import Layout from '../../components/site-layout'
 import {useCreateSubscription, useViewerSubscription} from '../../hooks'
 import {AuthToken} from '../../interfaces'
@@ -72,32 +71,29 @@ const ProfilePage = ({token}: Props) => {
 
   return (
     <Layout title="profile ~ liten" isAuthenticated={true}>
-      <PageHeader title="Profile" subtitle={token.email} />
+      <section className="container px-4 sm:px-8 lg:my-8 xl:px-20 mx-auto">
+        <p className="text-center mt-3 md:mt-8 text-gray-500 leading-tight">
+          {token.email}
+        </p>
+        <h1 className="font-bold text-4xl md:text-6xl text-center mb-3 md:mb-8 text-gray-900 leading-tight">
+          Profile
+        </h1>
+      </section>
 
-      <section className="container px-4 sm:px-8 xl:px-20 mt-8 mx-auto">
+      <section className="container px-4 sm:px-8 xl:px-20 mx-auto text-center">
         <p>
           Email: <span className="text-gray-700">{token.email}</span>
         </p>
-        <p>
-          Subscription:{' '}
-          {!viewerSubscription ? (
-            'Loading...'
-          ) : viewerSubscription.subscription?.status === 'active' ? (
-            <span className="text-green-700">Active</span>
-          ) : (
-            <span className="text-red-700">None</span>
-          )}
-        </p>
-
-        <button className="my-2 underline" onClick={logout}>
-          Log out
-        </button>
-      </section>
-
-      <section className="container px-4 sm:px-8 xl:px-20 mx-auto">
-        <h2 className="font-semibold text-4xl lg:text-5xl tracking-tight mt-6 lg:mt-10 xl:mt-12 mb-2">
-          Billing
-        </h2>
+        {!viewerSubscription ? null : viewerSubscription.subscription
+            ?.status === 'active' ? (
+          <p>
+            Subscription: <span className="text-green-700">Active</span>
+          </p>
+        ) : (
+          <p>
+            Subscription: <span className="text-red-700">None</span>
+          </p>
+        )}
 
         {!viewerSubscription ? (
           'Loading...'
@@ -120,15 +116,28 @@ const ProfilePage = ({token}: Props) => {
               </span>
             </p>
 
-            <button className="my-2 underline" onClick={doUnsubscribe}>
+            <button
+              className="my-2 underline text-red-700 hover:text-gray-700"
+              onClick={doUnsubscribe}
+            >
               Unsubscribe
             </button>
           </>
         ) : (
-          <button className="my-2 underline" onClick={doSubscribe}>
+          <button
+            className="my-2 underline block hover:text-gray-700"
+            onClick={doSubscribe}
+          >
             Subscribe
           </button>
         )}
+
+        <button
+          className="my-1 underline block mx-auto mb-8 hover:text-gray-700"
+          onClick={logout}
+        >
+          Log out
+        </button>
       </section>
     </Layout>
   )

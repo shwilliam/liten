@@ -8,7 +8,6 @@ const getStyles = () => {
 
   return {
     parent: {
-      background: '#ccdee8',
       boxSizing: 'border-box',
       display: 'inline',
       padding: 0,
@@ -42,7 +41,7 @@ const getStyles = () => {
     axisOne: {
       grid: {
         stroke: ({tick}: {tick: number}) =>
-          tick === -10 ? 'transparent' : '#ffffff',
+          tick === -10 ? 'transparent' : '#ccdee8',
         strokeWidth: 2,
       },
       axis: {stroke: BLUE_COLOR, strokeWidth: 0},
@@ -206,7 +205,11 @@ const ViewChart = ({views}: Props) => {
         </button>
       </div>
 
-      <svg style={styles.parent as any} viewBox="0 0 450 350">
+      <svg
+        className="border rounded"
+        style={styles.parent as any}
+        viewBox="0 0 450 350"
+      >
         <rect x="0" y="0" width="10" height="30" fill="#dd6b20" />
 
         <VictoryLabel

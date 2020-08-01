@@ -18,7 +18,7 @@ const LinkListItem = ({slug, target, onCopy, stats = false}: ItemProps) => {
   return (
     <li
       key={slug}
-      className="sm:flex sm:justify-between flex-grow px-3 py-2 my-2 border rounded bg-white"
+      className="sm:flex sm:justify-between flex-grow px-3 py-2 my-2 border rounded bg-white relative"
     >
       <Alert className="inline-block flex-grow m-1 sm:m-0 flex whitespace-no-wrap">
         <a className="text-gray-900" href={shortLink}>
@@ -53,17 +53,44 @@ const LinkListItem = ({slug, target, onCopy, stats = false}: ItemProps) => {
         </a>
         {stats && (
           <a
-            className="text-center text-indigo-500 hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6 sm:mr-4"
+            className={`text-center text-indigo-500 hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6 sm:mr-4 ${
+              stats ? 'border' : ''
+            }`}
             href={`/${slug}/stats`}
           >
-            Statistics
+            Views
           </a>
         )}
         <button
-          className="text-indigo-500 hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6"
+          className={`text-indigo-500 hover:opacity-50 sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 ${
+            stats
+              ? 'absolute top-0 right-0 sm:static z-50 p-2 mt-2 sm:mt-0 px-4'
+              : 'sm:px-4 md:px-6 w-full'
+          }`}
           onClick={handleCopy}
         >
-          Copy
+          {stats ? (
+            <>
+              <span className="sr-only">Copy</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+              </svg>
+            </>
+          ) : (
+            'Copy'
+          )}
         </button>
       </div>
     </li>

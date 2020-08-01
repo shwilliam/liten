@@ -19,7 +19,7 @@ const Layout = ({
   const router = useRouter()
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 min-h-screen flex flex-col">
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
@@ -109,10 +109,30 @@ const Layout = ({
 
       <main>{children}</main>
 
-      <footer className="mt-10">
+      <section>
         <hr />
-        <div className="container px-4 sm:px-8 xl:px-20 mx-auto">liten</div>
-      </footer>
+        <footer className="flex items-center justify-between flex-wrap p-6 container px-4 sm:px-8 xl:px-20 mt-4 mb-1 mx-auto">
+          <p>liten</p>
+
+          <ul className="flex justify-end">
+            <li className="block sm:inline-block sm:mt-0 px-2">
+              <Link href="/privacy-policy">
+                <a className="active border-orange-600 hover:opacity-75">
+                  privacy policy
+                </a>
+              </Link>
+            </li>
+            |
+            <li className="block sm:inline-block sm:mt-0 px-2">
+              <Link href="/terms-of-service">
+                <a className="active border-orange-600 hover:opacity-75">
+                  terms of service
+                </a>
+              </Link>
+            </li>
+          </ul>
+        </footer>
+      </section>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import {GetServerSideProps} from 'next'
 
+import PageHeader from '../../components/page-header'
 import Layout from '../../components/site-layout'
 import ViewChart from '../../components/view-chart'
 import {useLinkViews} from '../../hooks'
@@ -22,21 +23,21 @@ const LinkStatsPage = ({link, slug, token}: Props) => {
   return (
     <Layout title={`stats ${slug} ~ liten`} isAuthenticated={!!token}>
       <div className="py-8 pb-10 sm:py-10 sm:pb-12">
-        <div className="container px-4 sm:px-8 lg:my-8 xl:px-20 mx-auto">
-          <a
-            className="block md:text-center mt-3 md:mt-8 text-gray-500 hover:text-gray-900 leading-tight"
-            target="_blank"
-            rel="noopener noreferrer"
-            href={link.target}
-          >
-            {removeWebHostString(removeURLScheme(link.target))}
-          </a>
-          <h1 className="font-bold text-4xl md:text-6xl md:text-center mb-3 md:mb-8 text-gray-900 leading-tight">
-            /{slug} stats
-          </h1>
-        </div>
+        <PageHeader
+          title={`/${slug} stats`}
+          subtitle={
+            <a
+              className="block md:text-center mt-3 md:mt-8 text-gray-500 hover:text-gray-900 leading-tight"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={link.target}
+            >
+              {removeWebHostString(removeURLScheme(link.target))}
+            </a>
+          }
+        />
 
-        <section className="mx-auto p-4 sm:p-8 container max-w-2xl ">
+        <section className="mx-auto p-4 sm:p-8 container max-w-2xl mb-12">
           {views.status === 'success' ? (
             views.data.views.length ? (
               <ViewChart views={views.data.views} />

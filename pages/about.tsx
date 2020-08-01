@@ -1,6 +1,7 @@
 import {GetServerSideProps} from 'next'
 import Link from 'next/link'
 
+import PageHeader from '../components/page-header'
 import Layout from '../components/site-layout'
 import {AuthToken} from '../interfaces'
 import {validateHeaderToken} from '../lib'
@@ -11,7 +12,8 @@ type Props = {
 
 const AboutPage = ({token}: Props) => (
   <Layout title="about ~ liten" isAuthenticated={!!token}>
-    <h1>About</h1>
+    <PageHeader title="About" />
+
     <p>
       <Link href="/">
         <a>Go home</a>

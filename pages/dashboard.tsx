@@ -1,5 +1,7 @@
 import {GetServerSideProps} from 'next'
+
 import LinkList from '../components/link-list'
+import PageHeader from '../components/page-header'
 import Layout from '../components/site-layout'
 import SummaryCard from '../components/summary-card'
 import {useViewerLinks, useViewerLinksViews} from '../hooks'
@@ -22,14 +24,7 @@ const DashboardPage = ({token}: Props) => {
   return (
     <Layout title="dashboard ~ liten" isAuthenticated>
       <div className="py-8 pb-10 sm:py-10 sm:pb-12">
-        <section className="container px-4 sm:px-8 lg:my-8 xl:px-20 mx-auto">
-          <p className="md:text-center mt-3 md:mt-8 text-gray-500 leading-tight">
-            {token?.email}
-          </p>
-          <h1 className="font-bold text-4xl md:text-6xl md:text-center mb-3 md:mb-8 text-gray-900 leading-tight">
-            Dashboard
-          </h1>
-        </section>
+        <PageHeader title="Dashboard" subtitle={token?.email} />
 
         <section className="container px-4 sm:px-8 my-12 md:my-16 lg:my-24 xl:px-20 mx-auto">
           <div className="flex justify-around md:mx-auto overflow-visible">
@@ -105,7 +100,7 @@ const DashboardPage = ({token}: Props) => {
           </div>
         </section>
 
-        <section className="container px-4 sm:px-8 xl:px-20 mx-auto">
+        <section className="container px-4 sm:px-8 xl:px-20 mx-auto my-20">
           <h2 className="font-semibold text-4xl lg:text-5xl tracking-tight mt-6 lg:mt-10 xl:mt-12 mb-2">
             Your Links
           </h2>

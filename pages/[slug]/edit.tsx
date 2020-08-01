@@ -4,6 +4,8 @@ import {ChangeEvent, FormEvent, ReactNode, useReducer} from 'react'
 
 import Input from '../../components/input'
 import Label from '../../components/label'
+import PageHeader from '../../components/page-header'
+import PageWrapper from '../../components/page-wrapper'
 import {
   GooglePreview,
   OGPreview,
@@ -138,19 +140,21 @@ const LinkEditPage = ({link, slug, token}: Props) => {
   return (
     <Layout title={`edit ${slug} ~ liten`} isAuthenticated={!!token}>
       <div className="py-8 pb-10 sm:py-10 sm:pb-12">
-        <div className="container px-4 sm:px-8 lg:my-8 xl:px-20 mx-auto">
-          <a
-            className="block md:text-center mt-3 md:mt-8 text-gray-500 hover:text-gray-900 leading-tight"
-            target="_blank"
-            rel="noopener noreferrer"
-            href={link.target}
-          >
-            {removeWebHostString(removeURLScheme(link.target))}
-          </a>
-          <h1 className="font-bold text-4xl md:text-6xl md:text-center mb-3 md:mb-8 text-gray-900 leading-tight">
-            Edit /{slug}
-          </h1>
+        <PageHeader
+          title={`Edit /${slug}`}
+          subtitle={
+            <a
+              className="block md:text-center mt-3 md:mt-8 text-gray-500 hover:text-gray-900 leading-tight"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={link.target}
+            >
+              {removeWebHostString(removeURLScheme(link.target))}
+            </a>
+          }
+        />
 
+        <PageWrapper>
           <form onSubmit={handleSubmit}>
             <Tabs className="outline-none">
               <TabList className="-mb-px flex md:justify-center overflow-scroll">
@@ -422,7 +426,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
               </button>
             </div>
           </form>
-        </div>
+        </PageWrapper>
       </div>
     </Layout>
   )

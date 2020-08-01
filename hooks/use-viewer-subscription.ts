@@ -8,16 +8,18 @@ export const useViewerSubscription = () => {
 
   useEffect(() => {
     try {
+      if (viewer.status !== 'success' || activeSubscription) {
+        return
+      }
       ;(async () => {
-        if (
-          viewer.status === 'success' &&
-          viewer.data.stripeId &&
-          !activeSubscription
-        ) {
+        if (!viewer.data.stripeId) {
+          setActiveSubscription({subscription: {status: 'none'}})
+        } else {
           const response = await fetch(
             `/api/checkout/customer/${viewer.data.stripeId}`,
           )
           const responseJSON = await response.json()
+          console.log({responseJSON})
           setActiveSubscription(responseJSON)
         }
       })()

@@ -24,7 +24,7 @@ const LoginPage = () => {
         .filter((link: any) => !link.authorId)
         .map((link: any) => link.id)
       await claimLocalLinks({links: localLinksIds})
-      router.push('/#dashboard')
+      router.push('/dashboard')
     } else {
       alert('Error authenticating')
     }

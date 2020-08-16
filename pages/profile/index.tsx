@@ -125,7 +125,7 @@ const ProfilePage = ({token}: Props) => {
           </>
         ) : (
           <button
-            className="my-2 underline block hover:text-gray-700"
+            className="my-2 mx-auto underline block hover:text-gray-700"
             onClick={doSubscribe}
           >
             Subscribe

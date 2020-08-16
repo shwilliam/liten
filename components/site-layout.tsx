@@ -19,7 +19,7 @@ const Layout = ({
   const router = useRouter()
 
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col">
+    <div className="layout bg-gray-100 min-h-screen flex flex-col">
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />

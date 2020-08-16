@@ -419,7 +419,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
             <div className="flex justify-end max-w-4xl mx-auto">
               <button
                 disabled={isLoading}
-                className="block w-full lg:w-auto flex-shrink-0 px-6 py-2 my-1 border rounded bg-orange-600 text-white border-orange-600 hover:opacity-75 mt-12"
+                className="block w-full lg:w-auto flex-shrink-0 px-6 py-2 my-1 border rounded bg-indigo-600 text-white border-indigo-600 hover:opacity-75 mt-12"
                 type="submit"
               >
                 Save

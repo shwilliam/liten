@@ -3,24 +3,34 @@ import {useState} from 'react'
 import {useCopyToClipboard} from 'react-use'
 
 import {removeURLScheme, removeWebHostString} from '../lib'
+import LinkButton from './link-button'
 
 type ItemProps = {
+  idx: number
   slug: string
   target: string
   onCopy: (message: string) => void
   stats?: boolean
 }
 
-const LinkListItem = ({slug, target, onCopy, stats = false}: ItemProps) => {
+const LinkListItem = ({
+  idx,
+  slug,
+  target,
+  onCopy,
+  stats = false,
+}: ItemProps) => {
   const shortLink = `https://liten.xyz/${slug}`
   const handleCopy = () => onCopy(shortLink)
 
   return (
     <li
       key={slug}
-      className="sm:flex sm:justify-between flex-grow px-3 py-2 my-2 border rounded bg-white relative"
+      className={`sm:flex sm:justify-between flex-grow border-4 border-blue-500 bg-white relative ${
+        idx === 0 ? '' : 'border-t-0'
+      }`}
     >
-      <Alert className="inline-block flex-grow m-1 sm:m-0 flex whitespace-no-wrap">
+      <Alert className="inline-block flex-grow p-2 flex whitespace-no-wrap">
         <a className="text-gray-900" href={shortLink}>
           liten.xyz/{slug}
         </a>
@@ -44,25 +54,25 @@ const LinkListItem = ({slug, target, onCopy, stats = false}: ItemProps) => {
         </a>
       </Alert>
 
-      <div className="flex sm:flex-row-reverse">
-        <a
-          className="text-center bg-indigo-500 text-white hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6 mr-6 sm:mr-0"
+      <div className="flex sm:flex-row-reverse border-t-4 sm:border-t-0 border-blue-500">
+        <LinkButton
+          className="text-center text-white w-full border-t-0 border-l-0 border-b-0 sm:border-t-0 sm:border-l-4 sm:w-auto sm:border-r-0"
           href={`/${slug}/edit`}
         >
           Edit
-        </a>
+        </LinkButton>
         {stats && (
-          <a
-            className={`text-center text-indigo-500 hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6 sm:mr-4 ${
+          <LinkButton
+            className={`text-center text-indigo-500 w-full sm:w-auto ${
               stats ? 'border' : ''
             }`}
             href={`/${slug}/stats`}
           >
             Views
-          </a>
+          </LinkButton>
         )}
         <button
-          className={`text-indigo-500 hover:opacity-50 sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 ${
+          className={`font-mono text-blue-500 hover:opacity-50 sm:w-auto ${
             stats
               ? 'absolute top-0 right-0 sm:static z-50 p-2 mt-2 sm:mt-0 px-4'
               : 'sm:px-4 md:px-6 w-full'
@@ -121,8 +131,9 @@ const LinkList = ({links = [], stats = false}: Props) => {
   return links?.length ? (
     <>
       <ul>
-        {links.map(({slug, target}) => (
+        {links.map(({slug, target}, idx) => (
           <LinkListItem
+            idx={idx}
             key={slug}
             slug={slug}
             target={target}

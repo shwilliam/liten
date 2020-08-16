@@ -3,6 +3,7 @@ import {useMutation} from 'react-query'
 import {useLocalStorage} from 'react-use'
 
 import {Link} from '../interfaces'
+import Button from './button'
 import LinkList from './link-list'
 
 const createLinkRequest = async (data: any) => {
@@ -62,64 +63,69 @@ const NewLinkForm = () => {
   })
 
   return (
-    <>
-      <h2 className="font-semibold text-4xl lg:text-5xl tracking-tight text-white my-2">
-        Try it out!
-      </h2>
-      <form
-        className="flex justify-between flex-wrap lg:flex-no-wrap"
-        onSubmit={handleLinkSubmit}
-      >
-        <div className="sm:flex w-full">
-          <label className="sr-only" htmlFor="slug">
-            Slug
-          </label>
-          <input
-            value={slug}
-            onChange={handleSlugChange}
-            className="w-full flex-grow px-3 py-2 my-1 border rounded sm:mr-2 placeholder-gray-800"
-            name="slug"
-            id="slug"
-            type="text"
-            placeholder="/awesome"
-            autoFocus
-            required
-          />
-
-          <label className="sr-only" htmlFor="target">
-            Target
-          </label>
-          <input
-            value={target}
-            onChange={handleTargetChange}
-            className="w-full flex-grow px-3 py-2 my-1 border rounded lg:mr-2 placeholder-gray-800"
-            name="target"
-            id="target"
-            type="url"
-            placeholder="https://awesome-site.com"
-            required
-          />
-        </div>
-
-        <button
-          disabled={isLoading}
-          className="block w-full lg:w-auto flex-shrink-0 px-3 py-2 my-1 border rounded bg-orange-700 text-white border-orange-700 hover:opacity-75"
-          type="submit"
+    <section>
+      <div className="my-16 md:my-32 md:mb-20">
+        <h2
+          id="try"
+          className="font-serif italic text-blue-500 text-center text-3xl lg:text-4xl tracking-tight my-8"
         >
-          Generate
-        </button>
-      </form>
-      {error && <p className="text-white my-2">{error}</p>}
+          Create a short link
+        </h2>
+        <form
+          className="flex justify-between flex-wrap lg:flex-no-wrap"
+          onSubmit={handleLinkSubmit}
+        >
+          <div className="sm:flex w-full">
+            <label className="sr-only" htmlFor="slug">
+              Slug
+            </label>
+            <input
+              value={slug}
+              onChange={handleSlugChange}
+              className="w-full flex-grow px-3 py-2 border-4 border-b-0 sm:border-b-4 sm:border-r-0 border-blue-500 placeholder-gray-800"
+              name="slug"
+              id="slug"
+              type="text"
+              placeholder="/awesome"
+              autoFocus
+              required
+            />
+
+            <label className="sr-only" htmlFor="target">
+              Target
+            </label>
+            <input
+              value={target}
+              onChange={handleTargetChange}
+              className="w-full flex-grow px-3 py-2 border-4 border-blue-500 placeholder-gray-800"
+              name="target"
+              id="target"
+              type="url"
+              placeholder="https://awesome-site.com"
+              required
+            />
+          </div>
+
+          <Button
+            disabled={isLoading}
+            className="sm:w-auto sm:ml-auto w-full lg:w-auto flex-shrink-0 border-t-0 lg:border-t-4 lg:border-l-0"
+            type="submit"
+          >
+            Generate
+          </Button>
+        </form>
+        {error && <p className="text-white my-2">{error}</p>}
+      </div>
 
       {createdLinks?.length > 0 && (
-        <>
-          <h2 className="font-semibold text-4xl lg:text-5xl tracking-tight text-white mt-6 lg:mt-10 xl:mt-12 my-4">
-            Your Links
+        <div className="my-32 md:mb-20">
+          <h2 className="font-serif italic text-blue-500 text-center text-3xl lg:text-4xl tracking-tight my-8">
+            Your links
           </h2>
           <LinkList links={createdLinks} />
-        </>
+        </div>
       )}
-    </>
+    </section>
   )
 }
 

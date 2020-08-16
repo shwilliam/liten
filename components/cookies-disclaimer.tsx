@@ -12,7 +12,7 @@ const CookiesDisclaimer = () => {
   if (hasClosedCookiesDisclaimer) return null
 
   return (
-    <div className="p-4 py-2 bg-orange-600 text-indigo-100 leading-none border-white">
+    <div className="p-4 py-2 bg-indigo-600 text-indigo-100 leading-none border-white">
       <div className="flex max-w-6xl mx-auto px-1 md:px-4 py-2 leading-tight">
         <button onClick={closeCookiesDisclaimer} className="pr-4">
           <span className="sr-only">Close</span>

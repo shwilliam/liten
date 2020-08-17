@@ -3,6 +3,8 @@ import {useState} from 'react'
 import {useCopyToClipboard} from 'react-use'
 
 import {removeURLScheme, removeWebHostString} from '../lib'
+import IconCopy from './icon-copy'
+import IconViews from './icon-views'
 import LinkButton from './link-button'
 
 type ItemProps = {
@@ -62,20 +64,29 @@ const LinkListItem = ({
           Edit
         </LinkButton>
         {stats && (
-          <LinkButton
-            className={`text-center w-full sm:w-auto sm:border-l-4 ${
-              stats ? 'border' : ''
-            }`}
-            href={`/${slug}/stats`}
-            invert
-          >
-            Views
-          </LinkButton>
+          <>
+            <LinkButton
+              className={`sm:hidden text-center w-full sm:w-auto sm:border-l-4 ${
+                stats ? 'border' : ''
+              }`}
+              href={`/${slug}/stats`}
+              invert
+            >
+              Views
+            </LinkButton>
+            <a
+              className="hidden sm:inline-block text-blue-500 hover:opacity-50 sm:w-auto absolute top-0 right-0 sm:static z-10 p-2 sm:mt-0 px-2 mr-2"
+              href={`/${slug}/stats`}
+            >
+              <span className="sr-only">Views</span>
+              <IconViews hidden />
+            </a>
+          </>
         )}
         <button
           className={`text-blue-500 hover:opacity-50 sm:w-auto ${
             stats
-              ? 'absolute top-0 right-0 sm:static z-10 p-2 sm:mt-0 px-4'
+              ? 'absolute top-0 right-0 sm:static z-10 p-2 sm:mt-0 px-2'
               : 'sm:px-4 md:px-6 w-full'
           }`}
           onClick={handleCopy}
@@ -83,21 +94,7 @@ const LinkListItem = ({
           {stats ? (
             <>
               <span className="sr-only">Copy</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden
-              >
-                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-              </svg>
+              <IconCopy hidden />
             </>
           ) : (
             'Copy'

@@ -2,6 +2,7 @@ import {loadStripe} from '@stripe/stripe-js'
 import {GetServerSideProps} from 'next'
 import {useRouter} from 'next/router'
 
+import Button from '../../components/button'
 import Layout from '../../components/site-layout'
 import {useCreateSubscription, useViewerSubscription} from '../../hooks'
 import {AuthToken} from '../../interfaces'
@@ -75,7 +76,7 @@ const ProfilePage = ({token}: Props) => {
         <p className="text-center mt-3 md:mt-8 text-gray-500 leading-tight">
           {token.email}
         </p>
-        <h1 className="font-bold text-4xl md:text-6xl text-center mb-3 md:mb-8 text-gray-900 leading-tight">
+        <h1 className="font-serif italic text-4xl md:text-6xl text-center mb-3 md:mb-8 text-blue-500 leading-tight">
           Profile
         </h1>
       </section>
@@ -124,20 +125,14 @@ const ProfilePage = ({token}: Props) => {
             </button>
           </>
         ) : (
-          <button
-            className="my-2 mx-auto underline block hover:text-gray-700"
-            onClick={doSubscribe}
-          >
+          <Button className="mt-8 mb-6 mx-auto" onClick={doSubscribe}>
             Subscribe
-          </button>
+          </Button>
         )}
 
-        <button
-          className="my-1 underline block mx-auto mb-8 hover:text-gray-700"
-          onClick={logout}
-        >
+        <Button className="mt-8 mb-6 mx-auto" onClick={logout}>
           Log out
-        </button>
+        </Button>
       </section>
     </Layout>
   )

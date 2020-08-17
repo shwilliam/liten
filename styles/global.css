@@ -45,7 +45,7 @@
 
 .edit-tab[data-selected] {
   outline: none;
-  border-bottom: 2px solid rgb(221, 107, 32);
+  border-bottom: 2px solid rgb(0, 0, 255);
 }
 
 .preview {

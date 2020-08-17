@@ -6,8 +6,11 @@ type Props = {
 }
 
 const Label = ({children, htmlFor}: Props) => (
-  <label className="block font-semibold text-xl mx-2 mt-4" htmlFor={htmlFor}>
-    {children}
+  <label
+    className="text-xs absolute mx-3 -my-1 text-blue-500 lowercase"
+    htmlFor={htmlFor}
+  >
+    {children}:
   </label>
 )
 

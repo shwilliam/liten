@@ -51,4 +51,8 @@
 .preview {
   min-height: 70px;
 }
+
+#try {
+  scroll-margin: 115px 0 0 0;
+}
 /* purgecss end ignore */

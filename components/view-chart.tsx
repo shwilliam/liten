@@ -4,7 +4,7 @@ import {VictoryAxis, VictoryLabel, VictoryLine} from 'victory'
 import {LinkView} from '../interfaces'
 
 const getStyles = () => {
-  const BLUE_COLOR = 'rgb(102, 126, 234)'
+  const BLUE_COLOR = 'rgb(0, 0, 255)'
 
   return {
     parent: {
@@ -211,13 +211,14 @@ const ViewChart = ({views}: Props) => {
         style={styles.parent as any}
         viewBox="0 0 450 350"
       >
-        <rect x="0" y="0" width="10" height="30" fill="#dd6b20" />
+        <rect x="0" y="0" width="10" height="30" fill="#00f" />
 
         <VictoryLabel
           x={25}
           y={24}
           style={styles.title as any}
           text="Open rates"
+          className="font-mono"
         />
         <VictoryLabel
           x={25}

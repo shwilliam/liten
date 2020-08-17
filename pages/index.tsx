@@ -28,7 +28,7 @@ const IndexPage = ({token}: Props) => (
 
       {!token && (
         <section className="mx-auto container mb-12">
-          <h2 className="text-center font-semibold text-4xl lg:text-5xl tracking-tight mt-24 mb-8 md:mb-2">
+          <h2 className="font-serif italic text-blue-500 text-center text-3xl lg:text-4xl tracking-tight my-8">
             Pricing
           </h2>
           <PricingTable />

@@ -3,6 +3,8 @@ import Link from 'next/link'
 import {useRouter} from 'next/router'
 import {ReactNode, useState} from 'react'
 
+import Logo from './logo'
+
 type Props = {
   children?: ReactNode
   title?: string
@@ -19,18 +21,24 @@ const Layout = ({
   const router = useRouter()
 
   return (
-    <div className="layout bg-gray-100 min-h-screen flex flex-col">
+    <div className="layout bg min-h-screen flex flex-col font-sans">
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Recursive:wght,CASL,MONO@770,0.25,0.25&display=swap"
+          rel="stylesheet"
+        />
       </Head>
 
-      <header className="sticky top-0 bg-gray-100 z-50">
+      <header className="bg text-blue-500 sticky top-0 z-50">
         <nav className="flex items-center justify-between flex-wrap p-6 container px-4 sm:px-8 xl:px-20 mx-auto">
+          <Logo />
+
           <div className="flex items-center flex-no-shrink mr-6">
             <Link href="/">
-              <a className="font-semibold text-xl tracking-tight hover:opacity-75">
+              <a className="font-mono font-semibold text-xl tracking-tight hover:opacity-75">
                 liten
               </a>
             </Link>
@@ -39,14 +47,15 @@ const Layout = ({
           <div className="block sm:hidden">
             <button
               onClick={toggleOpen}
-              className="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white"
+              className="flex items-center px-3 py-2 hover:opacity-50"
             >
               <svg
-                className="h-3 w-3"
+                className="h-4 w-4"
                 viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-label="Menu"
+                stroke="currentColor"
               >
-                <title>Menu</title>
                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
               </svg>
             </button>
@@ -62,7 +71,7 @@ const Layout = ({
                 <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">
                   <Link href="/dashboard">
                     <a
-                      className={`active border-orange-600 hover:opacity-75 ${
+                      className={`active border-indigo-600 hover:opacity-75 ${
                         router.route === '/dashboard' && 'border-b-2'
                       }`}
                     >
@@ -73,7 +82,7 @@ const Layout = ({
                 <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">
                   <Link href="/profile">
                     <a
-                      className={`active border-orange-600 hover:opacity-75 ${
+                      className={`active border-indigo-600 hover:opacity-75 ${
                         router.route === '/profile' && 'border-b-2'
                       }`}
                     >
@@ -86,7 +95,7 @@ const Layout = ({
             {!isAuthenticated && (
               <li className="block mt-4 sm:inline-block sm:mt-0 mr-4">
                 <Link href="/login">
-                  <a className="block px-3 py-2 border rounded hover:bg-orange-600 hover:text-white border-orange-600 bg-white text-orange-600">
+                  <a className="block px-3 py-2 border-4 border-blue-500 bg-blue-500 text-white hover:bg-white hover:text-blue-500 font-bold">
                     Get started
                   </a>
                 </Link>
@@ -106,7 +115,7 @@ const Layout = ({
           <ul className="flex justify-end">
             <li className="block sm:inline-block sm:mt-0 px-2">
               <Link href="/privacy-policy">
-                <a className="active border-orange-600 hover:opacity-75">
+                <a className="active border-indigo-600 hover:opacity-75">
                   privacy policy
                 </a>
               </Link>
@@ -114,7 +123,7 @@ const Layout = ({
             |
             <li className="block sm:inline-block sm:mt-0 px-2">
               <Link href="/terms-of-service">
-                <a className="active border-orange-600 hover:opacity-75">
+                <a className="active border-indigo-600 hover:opacity-75">
                   terms of service
                 </a>
               </Link>

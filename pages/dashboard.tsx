@@ -101,7 +101,7 @@ const DashboardPage = ({token}: Props) => {
         </section>
 
         <section className="container px-4 sm:px-8 xl:px-20 mx-auto my-20">
-          <h2 className="font-semibold text-4xl lg:text-5xl tracking-tight mt-6 lg:mt-10 xl:mt-12 mb-2">
+          <h2 className="font-serif italic text-blue-500 text-4xl lg:text-5xl tracking-tight mt-6 lg:mt-10 xl:mt-12 mb-2">
             Your Links
           </h2>
 

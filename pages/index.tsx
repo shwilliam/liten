@@ -20,7 +20,7 @@ const IndexPage = ({token}: Props) => (
 
       <Hero />
 
-      <div className="bg-orange-600 py-8 pb-10 sm:py-10 sm:pb-12">
+      <div className="py-8 pb-10 sm:py-10 sm:pb-12">
         <div className="container px-4 sm:px-8 lg:my-8 xl:px-20 mx-auto">
           <NewLinkForm />
         </div>
@@ -28,7 +28,7 @@ const IndexPage = ({token}: Props) => (
 
       {!token && (
         <section className="mx-auto container mb-12">
-          <h2 className="text-center font-semibold text-4xl lg:text-5xl tracking-tight mt-24 mb-8 md:mb-2">
+          <h2 className="font-serif italic text-blue-500 text-center text-3xl lg:text-4xl tracking-tight my-8">
             Pricing
           </h2>
           <PricingTable />

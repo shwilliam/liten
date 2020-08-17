@@ -3,24 +3,36 @@ import {useState} from 'react'
 import {useCopyToClipboard} from 'react-use'
 
 import {removeURLScheme, removeWebHostString} from '../lib'
+import IconCopy from './icon-copy'
+import IconViews from './icon-views'
+import LinkButton from './link-button'
 
 type ItemProps = {
+  idx: number
   slug: string
   target: string
   onCopy: (message: string) => void
   stats?: boolean
 }
 
-const LinkListItem = ({slug, target, onCopy, stats = false}: ItemProps) => {
+const LinkListItem = ({
+  idx,
+  slug,
+  target,
+  onCopy,
+  stats = false,
+}: ItemProps) => {
   const shortLink = `https://liten.xyz/${slug}`
   const handleCopy = () => onCopy(shortLink)
 
   return (
     <li
       key={slug}
-      className="sm:flex sm:justify-between flex-grow px-3 py-2 my-2 border rounded bg-white relative"
+      className={`sm:flex sm:justify-between flex-grow border-4 border-blue-500 bg-white relative ${
+        idx === 0 ? '' : 'border-t-0'
+      }`}
     >
-      <Alert className="inline-block flex-grow m-1 sm:m-0 flex whitespace-no-wrap">
+      <Alert className="inline-block flex-grow p-2 flex whitespace-no-wrap">
         <a className="text-gray-900" href={shortLink}>
           liten.xyz/{slug}
         </a>
@@ -44,27 +56,37 @@ const LinkListItem = ({slug, target, onCopy, stats = false}: ItemProps) => {
         </a>
       </Alert>
 
-      <div className="flex sm:flex-row-reverse">
-        <a
-          className="text-center bg-indigo-500 text-white hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6 mr-6 sm:mr-0"
+      <div className="flex sm:flex-row-reverse border-t-4 sm:border-t-0 border-blue-500">
+        <LinkButton
+          className="text-center text-white w-full border-t-0 border-l-0 border-b-0 sm:border-t-0 sm:border-l-4 sm:w-auto sm:border-r-0"
           href={`/${slug}/edit`}
         >
           Edit
-        </a>
+        </LinkButton>
         {stats && (
-          <a
-            className={`text-center text-indigo-500 hover:opacity-50 w-full sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 sm:px-4 md:px-6 sm:mr-4 ${
-              stats ? 'border' : ''
-            }`}
-            href={`/${slug}/stats`}
-          >
-            Views
-          </a>
+          <>
+            <LinkButton
+              className={`sm:hidden text-center w-full sm:w-auto sm:border-l-4 ${
+                stats ? 'border' : ''
+              }`}
+              href={`/${slug}/stats`}
+              invert
+            >
+              Views
+            </LinkButton>
+            <a
+              className="hidden sm:inline-block text-blue-500 hover:opacity-50 sm:w-auto absolute top-0 right-0 sm:static z-10 p-2 sm:mt-0 px-2 mr-2"
+              href={`/${slug}/stats`}
+            >
+              <span className="sr-only">Views</span>
+              <IconViews hidden />
+            </a>
+          </>
         )}
         <button
-          className={`text-indigo-500 hover:opacity-50 sm:w-auto rounded py-1 sm:py-0 mt-1 sm:mt-0 ${
+          className={`text-blue-500 hover:opacity-50 sm:w-auto ${
             stats
-              ? 'absolute top-0 right-0 sm:static z-50 p-2 mt-2 sm:mt-0 px-4'
+              ? 'absolute top-0 right-0 sm:static z-10 p-2 sm:mt-0 px-2'
               : 'sm:px-4 md:px-6 w-full'
           }`}
           onClick={handleCopy}
@@ -72,21 +94,7 @@ const LinkListItem = ({slug, target, onCopy, stats = false}: ItemProps) => {
           {stats ? (
             <>
               <span className="sr-only">Copy</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden
-              >
-                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-              </svg>
+              <IconCopy hidden />
             </>
           ) : (
             'Copy'
@@ -121,8 +129,9 @@ const LinkList = ({links = [], stats = false}: Props) => {
   return links?.length ? (
     <>
       <ul>
-        {links.map(({slug, target}) => (
+        {links.map(({slug, target}, idx) => (
           <LinkListItem
+            idx={idx}
             key={slug}
             slug={slug}
             target={target}
@@ -135,8 +144,8 @@ const LinkList = ({links = [], stats = false}: Props) => {
       <div className="fixed bottom-0 right-0 left-0 md:left-auto z-50 text-center md:text-left md:py-4 md:px-4 -mb-1">
         {copiedAlerts.map((message, idx) => (
           <Alert key={idx}>
-            <div className="px-2 py-4 md:py-2 md:my-1 bg-indigo-800 items-center text-indigo-100 leading-none md:rounded-full flex md:inline-flex border-b-2 border-white md:border-0">
-              <span className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
+            <div className="px-2 py-4 md:py-2 md:my-1 bg-blue-500 items-center text-white leading-none md:rounded-full flex md:inline-flex border-b-2 border-white md:border-0">
+              <span className="flex rounded-full bg-white text-blue-500 uppercase px-2 py-1 text-xs font-bold mr-3">
                 Copied
               </span>
               <span className="font-semibold mr-2 text-left flex-auto">

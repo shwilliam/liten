@@ -2,7 +2,9 @@ import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@reach/tabs'
 import {GetServerSideProps} from 'next'
 import {ChangeEvent, FormEvent, ReactNode, useReducer} from 'react'
 
+import Button from '../../components/button'
 import Input from '../../components/input'
+import InputWrapper from '../../components/input-wrapper'
 import Label from '../../components/label'
 import PageHeader from '../../components/page-header'
 import PageWrapper from '../../components/page-wrapper'
@@ -25,22 +27,6 @@ const StyledTab = ({children}: {children?: ReactNode}) => (
   <Tab className="edit-tab no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs md:text-base py-3 mr-3 md:mr-8 hover:opacity-50">
     {children}
   </Tab>
-)
-
-const InputWrapper = ({
-  className = '',
-  first = false,
-  children,
-}: {
-  className?: string
-  first?: boolean
-  children?: ReactNode
-}) => (
-  <div
-    className={`w-full flex-grow my-1 ${first ? 'sm:mr-2' : ''} ${className}`}
-  >
-    {children}
-  </div>
 )
 
 type Props = {
@@ -261,6 +247,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                         id="twitter_img_alt"
                         type="text"
                         placeholder="A flower"
+                        disabled={!isActiveSubscriber}
                       />
                     </InputWrapper>
                   </div>
@@ -417,13 +404,13 @@ const LinkEditPage = ({link, slug, token}: Props) => {
             </Tabs>
 
             <div className="flex justify-end max-w-4xl mx-auto">
-              <button
+              <Button
                 disabled={isLoading}
-                className="block w-full lg:w-auto flex-shrink-0 px-6 py-2 my-1 border rounded bg-orange-600 text-white border-orange-600 hover:opacity-75 mt-12"
+                className="w-full lg:w-auto flex-shrink-0 mb-2 mt-8"
                 type="submit"
               >
                 Save
-              </button>
+              </Button>
             </div>
           </form>
         </PageWrapper>

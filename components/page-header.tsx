@@ -10,7 +10,7 @@ const PageHeader = ({title, subtitle}: Props) => (
     <p className="md:text-center mt-3 md:mt-8 text-gray-500 leading-tight">
       {subtitle}
     </p>
-    <h1 className="font-bold text-4xl md:text-6xl md:text-center mb-3 md:mb-8 text-gray-900 leading-tight">
+    <h1 className="font-serif italic text-4xl md:text-6xl md:text-center mb-3 md:mb-8 text-blue-500 leading-tight">
       {title}
     </h1>
   </section>

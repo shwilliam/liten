@@ -16,7 +16,7 @@ const SummaryCard = ({
   <div className="mr-1 text-center inline-block sm:block">
     <div className="flex items-center justify-center p-2">
       {children}
-      <span className="p-1 md:p-2 lg:p-4 text-xl sm:text-2xl md:text-4xl lg:text-6xl font-bold">
+      <span className="p-1 md:p-2 lg:p-4 text-xl sm:text-2xl md:text-4xl lg:text-6xl font-mono font-bold">
         {figure}
       </span>
     </div>

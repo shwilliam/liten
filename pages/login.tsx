@@ -1,12 +1,12 @@
 import {useRouter} from 'next/dist/client/router'
 import Link from 'next/link'
-import {useState, ChangeEvent} from 'react'
+import {ChangeEvent, useState} from 'react'
 import {useLocalStorage} from 'react-use'
 
-import {logInWithEmail} from '../lib'
-import Input from '../components/input'
+import Button from '../components/button'
 import Layout from '../components/site-layout'
 import {useClaimLocalLinks} from '../hooks'
+import {logInWithEmail} from '../lib'
 
 const LoginPage = () => {
   const [email, setEmail] = useState('')
@@ -37,11 +37,11 @@ const LoginPage = () => {
     <Layout title="sign up ~ liten">
       <div className="mx-8">
         <form
-          className="max-w-md mx-auto p-5 my-10 md:my-16 lg:my-32 mb-16 md:mb-20 lg:mb-40 shadow-lg rounded bg-white"
+          className="max-w-md mx-auto p-5 my-10 md:my-16 lg:my-32 mb-16 md:mb-20 lg:mb-40 bg-white border-4 border-blue-500"
           onSubmit={handleSubmit}
         >
           <div className="pt-3 pb-6 text-center">
-            <h1 className="text-center font-semibold text-4xl lg:text-5xl tracking-tight my-2">
+            <h1 className="font-mono text-center font-semibold text-blue-500 text-4xl lg:text-5xl tracking-tight my-2">
               Welcome!
             </h1>
             <p className="text-gray-700">
@@ -52,8 +52,9 @@ const LoginPage = () => {
           <label className="sr-only" htmlFor="email">
             Email
           </label>
-          <Input
+          <input
             value={email}
+            className="w-full px-3 py-2 border-4 border-blue-500 placeholder-gray-800"
             onChange={handleChange}
             name="email"
             id="email"
@@ -63,13 +64,10 @@ const LoginPage = () => {
             required
           />
 
-          <button
-            className="block w-full flex-shrink-0 px-3 py-2 my-1 border rounded bg-orange-700 text-white border-orange-700 hover:opacity-75"
-            type="submit"
-          >
+          <Button className="w-full -mt-2" type="submit">
             <span className="font-bold">Log in</span> or{' '}
             <span className="font-bold">sign up</span>
-          </button>
+          </Button>
           <p className="text-center text-gray-700 p-4 mt-3">
             By creating an account, you agree to the{' '}
             <Link href="/terms-of-service">

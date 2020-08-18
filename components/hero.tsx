@@ -1,5 +1,5 @@
 const Hero = () => (
-  <div className="my-32 md:my-48 md:mb-20">
+  <div className="my-32 md:my-48 lg:mb-64">
     <div className="container px-4 sm:px-8 md:px-2 lg:px-0 lg:px-16 xl:px-20 mx-auto text-center">
       <p className="font-serif italic text-4xl md:text-5xl lg:text-6xl text-gray-900 leading-tight">
         Short links that do more.

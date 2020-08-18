@@ -33,3 +33,8 @@ export const validateHeaderToken = (headers: IncomingHttpHeaders) => {
     return null
   }
 }
+
+export const scrollToEl = (selector: string) =>
+  document.querySelector(selector)?.scrollIntoView({
+    behavior: 'smooth',
+  })

@@ -130,7 +130,7 @@ const ProfilePage = ({token}: Props) => {
           </Button>
         )}
 
-        <Button className="mt-8 mb-6 mx-auto" onClick={logout}>
+        <Button className="mt-8 mb-6 mx-auto" onClick={logout} invert>
           Log out
         </Button>
       </section>

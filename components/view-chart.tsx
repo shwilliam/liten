@@ -60,7 +60,7 @@ const getStyles = () => {
       fontStyle: 'italic',
     },
     lineOne: {
-      data: {stroke: '#dd6b20', strokeWidth: 2},
+      data: {stroke: BLUE_COLOR, strokeWidth: 2},
     },
     axisOneCustomLabel: {
       fill: BLUE_COLOR,
@@ -70,7 +70,7 @@ const getStyles = () => {
     },
 
     lineAvg: {
-      data: {stroke: BLUE_COLOR, strokeWidth: 2},
+      data: {stroke: '#0000ff70', strokeWidth: 2},
     },
   }
 }
@@ -233,7 +233,7 @@ const ViewChart = ({views}: Props) => {
             standalone={false}
             style={styles.axisYears as any}
             tickValues={tickValues}
-            tickFormat={x => x.getDate()}
+            tickFormat={x => `${x.getDate()}/${x.getMonth()}`}
           />
 
           <VictoryAxis

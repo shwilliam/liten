@@ -32,7 +32,7 @@ const Layout = ({
         />
       </Head>
 
-      <header className="bg text-blue-500 sticky top-0 z-50">
+      <header className="text-blue-500 sticky top-0 z-50">
         <nav className="flex items-center justify-between flex-wrap p-6 container px-4 sm:px-8 xl:px-20 mx-auto">
           <Logo />
 

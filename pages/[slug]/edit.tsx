@@ -23,17 +23,23 @@ import {
   validateHeaderToken,
 } from '../../lib'
 
+type Props = {
+  link: Link
+  slug: string
+  token: AuthToken
+}
+
 const StyledTab = ({children}: {children?: ReactNode}) => (
   <Tab className="edit-tab no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs md:text-base py-3 mr-3 md:mr-8 hover:opacity-50">
     {children}
   </Tab>
 )
 
-type Props = {
-  link: Link
-  slug: string
-  token: AuthToken
-}
+const SubscriptionNote = () => (
+  <p className="font-serif italic lg:text-center py-2 lg:mb-4">
+    (Subscribe to customize preview image)
+  </p>
+)
 
 type LinkEditFormAction = {
   type: 'INPUT'
@@ -192,6 +198,8 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                     desc={form.twitter_desc}
                   />
 
+                  {!isActiveSubscriber && <SubscriptionNote />}
+
                   <div className="sm:flex w-full">
                     <InputWrapper first>
                       <Label htmlFor="twitter_title">Title</Label>
@@ -291,6 +299,8 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                     desc={form.og_desc}
                   />
 
+                  {!isActiveSubscriber && <SubscriptionNote />}
+
                   <div className="sm:flex w-full">
                     <InputWrapper first>
                       <Label htmlFor="og_title">Title</Label>
@@ -356,6 +366,8 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                     title={form.google_title}
                     desc={form.google_desc}
                   />
+
+                  {!isActiveSubscriber && <SubscriptionNote />}
 
                   <div className="sm:flex w-full">
                     <InputWrapper first>

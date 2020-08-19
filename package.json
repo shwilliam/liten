@@ -14,6 +14,7 @@
     "@prisma/client": "^2.3.0",
     "@reach/alert": "^0.10.5",
     "@reach/tabs": "^0.10.5",
+    "@reach/tooltip": "^0.10.5",
     "@stripe/stripe-js": "^1.8.0",
     "cloudinary": "^1.22.0",
     "cookie": "^0.4.1",

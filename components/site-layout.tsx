@@ -32,13 +32,17 @@ const Layout = ({
         />
       </Head>
 
-      <header className="text-blue-500 sticky top-0 z-50">
-        <nav className="flex items-center justify-between flex-wrap p-6 container px-4 sm:px-8 xl:px-20 mx-auto">
+      <header
+        className={`text-blue-500 sticky top-0 z-50 ${
+          isOpen ? 'bg' : 'bg-fade'
+        }`}
+      >
+        <nav className="relative flex items-center justify-between flex-wrap pt-6 pb-4 container px-4 sm:px-8 xl:px-20 mx-auto">
           <Logo />
 
-          <div className="flex items-center flex-no-shrink mr-6">
+          <div className="absolute top-6 left-0 right-0 sm:static flex items-center flex-no-shrink">
             <Link href="/">
-              <a className="font-mono font-semibold text-xl tracking-tight hover:opacity-75">
+              <a className="font-mono font-semibold text-xl tracking-tight mx-auto hover:opacity-75">
                 liten
               </a>
             </Link>
@@ -110,7 +114,7 @@ const Layout = ({
       <section>
         <hr />
         <footer className="flex items-center justify-between flex-wrap p-6 container px-4 sm:px-8 xl:px-20 mt-4 mb-1 mx-auto">
-          <p>liten</p>
+          <p>liten.xyz</p>
 
           <ul className="flex justify-end">
             <li className="block sm:inline-block sm:mt-0 px-2">

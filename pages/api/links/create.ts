@@ -9,7 +9,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const token = validateHeaderToken(req.headers)
 
-    const {slug, target} = req.body
+    const {target} = req.body
+
+    let {slug} = req.body
+    if (slug[0] === '/') slug = slug.substring(1)
 
     const link = token?.email
       ? await prisma.link.create({

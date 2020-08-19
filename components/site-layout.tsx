@@ -121,11 +121,22 @@ const Layout = ({
         <footer className="flex items-center justify-between flex-wrap p-6 container px-4 sm:px-8 xl:px-20 mt-4 mb-1 mx-auto">
           <p>liten.xyz</p>
 
-          <ul className="flex justify-end">
+          <ul className="flex justify-end lowercase">
+            <li className="block sm:inline-block sm:mt-0 px-2">
+              <a
+                href="https://github.com/shwilliam/liten/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="active border-indigo-600 hover:opacity-75"
+              >
+                Support
+              </a>
+            </li>
+            |
             <li className="block sm:inline-block sm:mt-0 px-2">
               <Link href="/privacy-policy">
                 <a className="active border-indigo-600 hover:opacity-75">
-                  privacy policy
+                  Privacy Policy
                 </a>
               </Link>
             </li>
@@ -133,7 +144,7 @@ const Layout = ({
             <li className="block sm:inline-block sm:mt-0 px-2">
               <Link href="/terms-of-service">
                 <a className="active border-indigo-600 hover:opacity-75">
-                  terms of service
+                  Terms of Service
                 </a>
               </Link>
             </li>

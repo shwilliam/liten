@@ -45,7 +45,7 @@ const Layout = ({
             </a>
           </Link>
 
-          <div className="flex items-center flex-no-shrink">
+          <div className="flex items-center flex-no-shrink sm:ml-4 md:ml-6">
             <Link href="/">
               <a className="font-mono font-semibold text-xl tracking-tight mx-auto hover:opacity-75">
                 liten

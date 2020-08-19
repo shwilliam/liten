@@ -39,13 +39,13 @@ const Layout = ({
       >
         <nav className="flex items-center justify-between flex-wrap pt-6 pb-4 container px-4 sm:px-8 xl:px-20 mx-auto">
           <Link href="/">
-            <a>
+            <a className="z-20">
               <span className="sr-only">Home</span>
               <Logo />
             </a>
           </Link>
 
-          <div className="flex items-center flex-no-shrink sm:ml-2 md:ml-6">
+          <div className="absolute sm:static left-0 right-0 text-center flex items-center flex-no-shrink sm:ml-2 md:ml-6">
             <Link href="/">
               <a className="font-mono font-semibold text-xl tracking-tight mx-auto hover:opacity-75">
                 liten
@@ -71,13 +71,13 @@ const Layout = ({
           </div>
 
           <ul
-            className={`w-full ${
-              isOpen ? 'block' : 'hidden'
-            } flex-grow sm:flex sm:items-center sm:w-auto justify-end`}
+            className={`font-mono w-full flex-grow sm:flex sm:items-center sm:w-auto justify-end absolute sm:relative top-0 mt-16 sm:mt-0 ${
+              isOpen ? 'block bg pb-2' : 'hidden'
+            }`}
           >
             {isAuthenticated && (
               <>
-                <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">
+                <li className="text-center block py-2 sm:my-0 sm:inline-block mr-8">
                   <Link href="/">
                     <a
                       className={`active border-blue-500 hover:opacity-75 ${
@@ -88,7 +88,7 @@ const Layout = ({
                     </a>
                   </Link>
                 </li>
-                <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">
+                <li className="text-center block py-2 sm:my-0 sm:inline-block mr-8">
                   <Link href="/dashboard">
                     <a
                       className={`active border-blue-500 hover:opacity-75 ${
@@ -99,7 +99,7 @@ const Layout = ({
                     </a>
                   </Link>
                 </li>
-                <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">
+                <li className="text-center block py-2 sm:my-0 sm:inline-block mr-8">
                   <Link href="/profile">
                     <a
                       className={`active border-blue-500 hover:opacity-75 ${

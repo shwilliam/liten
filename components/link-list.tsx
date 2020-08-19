@@ -32,7 +32,7 @@ const LinkListItem = ({
         idx === 0 ? '' : 'border-t-0'
       }`}
     >
-      <Alert className="inline-block flex-grow p-2 flex whitespace-no-wrap">
+      <Alert className="inline-block flex-grow p-3 flex whitespace-no-wrap">
         <a className="text-gray-900" href={shortLink}>
           liten.xyz/{slug}
         </a>
@@ -58,7 +58,7 @@ const LinkListItem = ({
 
       <div className="flex sm:flex-row-reverse border-t-4 sm:border-t-0 border-blue-500">
         <LinkButton
-          className="text-center text-white w-full border-t-0 border-l-0 border-b-0 sm:border-t-0 sm:border-l-4 sm:w-auto sm:border-r-0"
+          className="text-white w-full border-t-0 border-l-0 border-b-0 sm:border-t-0 sm:border-l-4 sm:w-auto sm:border-r-0"
           href={`/${slug}/edit`}
         >
           Edit
@@ -75,7 +75,7 @@ const LinkListItem = ({
               Views
             </LinkButton>
             <a
-              className="hidden sm:inline-block text-blue-500 hover:opacity-50 sm:w-auto absolute top-0 right-0 sm:static z-10 p-2 sm:mt-0 px-2 mr-2"
+              className="hidden sm:inline-block text-blue-500 hover:opacity-50 sm:w-auto absolute top-0 right-0 sm:static z-10 p-3 sm:mt-0 px-2 mr-2"
               href={`/${slug}/stats`}
             >
               <span className="sr-only">Views</span>
@@ -86,7 +86,7 @@ const LinkListItem = ({
         <button
           className={`text-blue-500 hover:opacity-50 sm:w-auto ${
             stats
-              ? 'absolute top-0 right-0 sm:static z-10 p-2 sm:mt-0 px-2'
+              ? 'absolute top-0 right-0 sm:static z-10 p-3 sm:mt-0 px-2'
               : 'sm:px-4 md:px-6 w-full'
           }`}
           onClick={handleCopy}

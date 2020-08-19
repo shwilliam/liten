@@ -243,6 +243,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                         accept="image/png, image/jpeg"
                         multiple={false}
                         disabled={!isActiveSubscriber}
+                        disabledTitle="Subscription required"
                       />
                     </InputWrapper>
 
@@ -256,6 +257,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                         type="text"
                         placeholder="A flower"
                         disabled={!isActiveSubscriber}
+                        disabledTitle="Subscription required"
                       />
                     </InputWrapper>
                   </div>
@@ -354,6 +356,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                         accept="image/png, image/jpeg"
                         multiple={false}
                         disabled={!isActiveSubscriber}
+                        disabledTitle="Subscription required"
                       />
                     </InputWrapper>
                   </div>
@@ -409,6 +412,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                       accept="image/png, image/jpeg"
                       multiple={false}
                       disabled={!isActiveSubscriber}
+                      disabledTitle="Subscription required"
                     />
                   </InputWrapper>
                 </TabPanel>

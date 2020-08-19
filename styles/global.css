@@ -36,8 +36,7 @@ body {
 [disabled],
 .disabled {
   opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
+  cursor: not-allowed !important;
 }
 
 .overflow-fade {

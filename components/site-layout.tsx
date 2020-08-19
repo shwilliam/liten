@@ -37,10 +37,15 @@ const Layout = ({
           isOpen ? 'bg' : 'bg-fade'
         }`}
       >
-        <nav className="relative flex items-center justify-between flex-wrap pt-6 pb-4 container px-4 sm:px-8 xl:px-20 mx-auto">
-          <Logo />
+        <nav className="flex items-center justify-between flex-wrap pt-6 pb-4 container px-4 sm:px-8 xl:px-20 mx-auto">
+          <Link href="/">
+            <a>
+              <span className="sr-only">Home</span>
+              <Logo />
+            </a>
+          </Link>
 
-          <div className="absolute top-6 left-0 right-0 sm:static flex items-center flex-no-shrink">
+          <div className="flex items-center flex-no-shrink">
             <Link href="/">
               <a className="font-mono font-semibold text-xl tracking-tight mx-auto hover:opacity-75">
                 liten
@@ -48,7 +53,7 @@ const Layout = ({
             </Link>
           </div>
 
-          <div className="block sm:hidden">
+          <div className="block sm:hidden z-20">
             <button
               onClick={toggleOpen}
               className="flex items-center px-3 py-2 hover:opacity-50"

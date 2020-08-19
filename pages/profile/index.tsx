@@ -7,6 +7,7 @@ import Layout from '../../components/site-layout'
 import {useCreateSubscription, useViewerSubscription} from '../../hooks'
 import {AuthToken} from '../../interfaces'
 import {validateHeaderToken} from '../../lib'
+import PageHeader from '../../components/page-header'
 
 const {NEXT_PUBLIC_STRIPE_PUBLIC_KEY} = process.env
 const stripePromise = NEXT_PUBLIC_STRIPE_PUBLIC_KEY
@@ -72,16 +73,9 @@ const ProfilePage = ({token}: Props) => {
 
   return (
     <Layout title="profile ~ liten" isAuthenticated={true}>
-      <section className="container px-4 sm:px-8 lg:my-8 xl:px-20 mx-auto">
-        <p className="text-center mt-3 md:mt-8 text-gray-500 leading-tight">
-          {token.email}
-        </p>
-        <h1 className="font-serif italic text-4xl md:text-6xl text-center mb-3 md:mb-8 text-blue-500 leading-tight">
-          Profile
-        </h1>
-      </section>
+      <PageHeader title="Profile" subtitle={token.email} />
 
-      <section className="container px-4 sm:px-8 xl:px-20 mx-auto text-center">
+      <section className="container mt-8 px-4 sm:px-8 lg:mt-10 xl:px-20  mx-auto md:text-center">
         <p>
           Email: <span className="text-gray-700">{token.email}</span>
         </p>
@@ -125,12 +119,12 @@ const ProfilePage = ({token}: Props) => {
             </button>
           </>
         ) : (
-          <Button className="mt-8 mb-6 mx-auto" onClick={doSubscribe}>
+          <Button className="mt-8 mb-6 md:mx-auto" onClick={doSubscribe}>
             Subscribe
           </Button>
         )}
 
-        <Button className="mt-8 mb-6 mx-auto" onClick={logout} invert>
+        <Button className="mt-8 mb-6 md:mx-auto" onClick={logout} invert>
           Log out
         </Button>
       </section>

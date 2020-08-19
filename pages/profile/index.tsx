@@ -91,7 +91,7 @@ const ProfilePage = ({token}: Props) => {
         )}
 
         {!viewerSubscription ? (
-          'Loading...'
+          'Loading subscription details...'
         ) : viewerSubscription.subscription?.status === 'active' ? (
           <>
             <p>

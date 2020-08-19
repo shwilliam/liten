@@ -87,7 +87,6 @@ const NewLinkForm = () => {
               id="slug"
               type="text"
               placeholder="/awesome"
-              autoFocus
               required
             />
 

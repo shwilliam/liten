@@ -45,7 +45,7 @@ const Layout = ({
             </a>
           </Link>
 
-          <div className="flex items-center flex-no-shrink sm:ml-4 md:ml-6">
+          <div className="flex items-center flex-no-shrink sm:ml-2 md:ml-6">
             <Link href="/">
               <a className="font-mono font-semibold text-xl tracking-tight mx-auto hover:opacity-75">
                 liten
@@ -77,6 +77,17 @@ const Layout = ({
           >
             {isAuthenticated && (
               <>
+                <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">
+                  <Link href="/">
+                    <a
+                      className={`active border-blue-500 hover:opacity-75 ${
+                        router.route === '/' && 'border-b-2'
+                      }`}
+                    >
+                      home
+                    </a>
+                  </Link>
+                </li>
                 <li className="block mt-4 sm:inline-block sm:mt-0 mr-8">
                   <Link href="/dashboard">
                     <a

@@ -112,10 +112,11 @@ const Layout = ({
                 </li>
               </>
             )}
+
             {!isAuthenticated && (
               <li className="block mt-4 sm:inline-block sm:mt-0 mr-4">
                 <Link href="/login">
-                  <a className="block px-3 py-2 border-4 border-blue-500 bg-blue-500 text-white hover:bg-white hover:text-blue-500 font-bold">
+                  <a className="block px-3 py-2 mr-4 sm:mr-0 border-4 border-blue-500 bg-blue-500 text-white hover:bg-white hover:text-blue-500 font-bold">
                     Get started
                   </a>
                 </Link>

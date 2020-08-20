@@ -38,7 +38,8 @@ const CookiesDisclaimer = () => {
           <Link href="/privacy-policy">
             <a className="underline hover:text-gray-300">here</a>
           </Link>
-          . By using this site you are giving us your consent to do this.
+          .<br className="hidden lg:block" /> By using this site you are giving
+          us your consent to do this.
         </p>
       </div>
     </div>

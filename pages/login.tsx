@@ -4,6 +4,7 @@ import {ChangeEvent, useState} from 'react'
 import {useLocalStorage} from 'react-use'
 
 import Button from '../components/button'
+import LabelledInput from '../components/labelled-input'
 import Layout from '../components/site-layout'
 import {useClaimLocalLinks} from '../hooks'
 import {logInWithEmail} from '../lib'
@@ -49,24 +50,20 @@ const LoginPage = () => {
             </p>
           </div>
 
-          <label className="sr-only" htmlFor="email">
-            Email
-          </label>
-          <input
+          <LabelledInput
             value={email}
-            className="w-full px-3 py-2 border-4 border-blue-500 placeholder-gray-800"
             onChange={handleChange}
             name="email"
             id="email"
             type="email"
-            placeholder="Email"
             autoFocus
             required
-          />
+          >
+            Email
+          </LabelledInput>
 
           <Button className="w-full -mt-2" type="submit">
-            <span className="font-bold">Log in</span> or{' '}
-            <span className="font-bold">sign up</span>
+            Log in or sign up
           </Button>
           <p className="text-center text-gray-700 p-4 mt-3">
             By creating an account, you agree to the{' '}

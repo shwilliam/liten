@@ -3,9 +3,7 @@ import {GetServerSideProps} from 'next'
 import {ChangeEvent, FormEvent, ReactNode, useReducer} from 'react'
 
 import Button from '../../components/button'
-import Input from '../../components/input'
-import InputWrapper from '../../components/input-wrapper'
-import Label from '../../components/label'
+import LabelledInput from '../../components/labelled-input'
 import PageHeader from '../../components/page-header'
 import PageWrapper from '../../components/page-wrapper'
 import {
@@ -162,31 +160,30 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                   <OGPreview title={form.title} desc={form.desc} />
 
                   <div className="sm:flex w-full">
-                    <InputWrapper first>
-                      <Label htmlFor="title">Title</Label>
-                      <Input
-                        value={form.title}
-                        onChange={handleInput}
-                        name="title"
-                        id="title"
-                        type="text"
-                        placeholder="Awesome link"
-                        maxLength={50}
-                      />
-                    </InputWrapper>
+                    <LabelledInput
+                      value={form.title}
+                      onChange={handleInput}
+                      name="title"
+                      id="title"
+                      type="text"
+                      placeholder="Awesome link"
+                      maxLength={50}
+                      first
+                    >
+                      Title
+                    </LabelledInput>
 
-                    <InputWrapper>
-                      <Label htmlFor="desc">Description</Label>
-                      <Input
-                        value={form.desc}
-                        onChange={handleInput}
-                        name="desc"
-                        id="desc"
-                        type="text"
-                        placeholder="An awesome place on the internet"
-                        maxLength={160}
-                      />
-                    </InputWrapper>
+                    <LabelledInput
+                      value={form.desc}
+                      onChange={handleInput}
+                      name="desc"
+                      id="desc"
+                      type="text"
+                      placeholder="An awesome place on the internet"
+                      maxLength={160}
+                    >
+                      Description
+                    </LabelledInput>
                   </div>
                 </TabPanel>
                 <TabPanel>
@@ -201,31 +198,30 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                   {!isActiveSubscriber && <SubscriptionNote />}
 
                   <div className="sm:flex w-full">
-                    <InputWrapper first>
-                      <Label htmlFor="twitter_title">Title</Label>
-                      <Input
-                        value={form.twitter_title}
-                        onChange={handleInput}
-                        name="twitter_title"
-                        id="twitter_title"
-                        type="text"
-                        placeholder="Awesome link"
-                        maxLength={50}
-                      />
-                    </InputWrapper>
+                    <LabelledInput
+                      value={form.twitter_title}
+                      onChange={handleInput}
+                      name="twitter_title"
+                      id="twitter_title"
+                      type="text"
+                      placeholder="Awesome link"
+                      maxLength={50}
+                      first
+                    >
+                      Title
+                    </LabelledInput>
 
-                    <InputWrapper>
-                      <Label htmlFor="twitter_desc">Description</Label>
-                      <Input
-                        value={form.twitter_desc}
-                        onChange={handleInput}
-                        name="twitter_desc"
-                        id="twitter_desc"
-                        type="text"
-                        placeholder="An awesome place on the internet"
-                        maxLength={200}
-                      />
-                    </InputWrapper>
+                    <LabelledInput
+                      value={form.twitter_desc}
+                      onChange={handleInput}
+                      name="twitter_desc"
+                      id="twitter_desc"
+                      type="text"
+                      placeholder="An awesome place on the internet"
+                      maxLength={200}
+                    >
+                      Description
+                    </LabelledInput>
                   </div>
 
                   <div
@@ -233,63 +229,57 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                       isActiveSubscriber ? '' : 'disabled'
                     }`}
                   >
-                    <InputWrapper first>
-                      <Label htmlFor="twitter_img_src">Image</Label>
-                      <Input
-                        onChange={handleFileInput}
-                        name="twitter_img_src"
-                        id="twitter_img_src"
-                        type="file"
-                        accept="image/png, image/jpeg"
-                        multiple={false}
-                        disabled={!isActiveSubscriber}
-                        disabledTitle="Subscription required"
-                      />
-                    </InputWrapper>
+                    <LabelledInput
+                      onChange={handleFileInput}
+                      name="twitter_img_src"
+                      id="twitter_img_src"
+                      type="file"
+                      accept="image/png, image/jpeg"
+                      multiple={false}
+                      disabled={!isActiveSubscriber}
+                      disabledTitle="Subscription required"
+                      first
+                    >
+                      Image
+                    </LabelledInput>
 
-                    <InputWrapper>
-                      <Label htmlFor="twitter_img_alt">Image alt</Label>
-                      <Input
-                        value={form.twitter_img_alt}
-                        onChange={handleInput}
-                        name="twitter_img_alt"
-                        id="twitter_img_alt"
-                        type="text"
-                        placeholder="A flower"
-                        disabled={!isActiveSubscriber}
-                        disabledTitle="Subscription required"
-                      />
-                    </InputWrapper>
+                    <LabelledInput
+                      value={form.twitter_img_alt}
+                      onChange={handleInput}
+                      name="twitter_img_alt"
+                      id="twitter_img_alt"
+                      type="text"
+                      placeholder="A flower"
+                      disabled={!isActiveSubscriber}
+                      disabledTitle="Subscription required"
+                    >
+                      Image alt
+                    </LabelledInput>
                   </div>
 
                   <div className="sm:flex w-full">
-                    <InputWrapper first>
-                      <Label htmlFor="twitter_site_acc">
-                        Twitter site account
-                      </Label>
-                      <Input
-                        value={form.twitter_site_acc}
-                        onChange={handleInput}
-                        name="twitter_site_acc"
-                        id="twitter_site_acc"
-                        type="text"
-                        placeholder="@mycompany"
-                      />
-                    </InputWrapper>
+                    <LabelledInput
+                      value={form.twitter_site_acc}
+                      onChange={handleInput}
+                      name="twitter_site_acc"
+                      id="twitter_site_acc"
+                      type="text"
+                      placeholder="@mycompany"
+                      first
+                    >
+                      Company account
+                    </LabelledInput>
 
-                    <InputWrapper>
-                      <Label htmlFor="twitter_author_acc">
-                        Twitter author account
-                      </Label>
-                      <Input
-                        value={form.twitter_author_acc}
-                        onChange={handleInput}
-                        name="twitter_author_acc"
-                        id="twitter_author_acc"
-                        type="text"
-                        placeholder="@me"
-                      />
-                    </InputWrapper>
+                    <LabelledInput
+                      value={form.twitter_author_acc}
+                      onChange={handleInput}
+                      name="twitter_author_acc"
+                      id="twitter_author_acc"
+                      type="text"
+                      placeholder="@me"
+                    >
+                      Author account
+                    </LabelledInput>
                   </div>
                 </TabPanel>
                 <TabPanel>
@@ -304,61 +294,57 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                   {!isActiveSubscriber && <SubscriptionNote />}
 
                   <div className="sm:flex w-full">
-                    <InputWrapper first>
-                      <Label htmlFor="og_title">Title</Label>
-                      <Input
-                        value={form.og_title}
-                        onChange={handleInput}
-                        name="og_title"
-                        id="og_title"
-                        type="text"
-                        placeholder="Awesome link"
-                        maxLength={50}
-                      />
-                    </InputWrapper>
+                    <LabelledInput
+                      value={form.og_title}
+                      onChange={handleInput}
+                      name="og_title"
+                      id="og_title"
+                      type="text"
+                      placeholder="Awesome link"
+                      maxLength={50}
+                      first
+                    >
+                      Title
+                    </LabelledInput>
 
-                    <InputWrapper>
-                      <Label htmlFor="og_desc">Description</Label>
-                      <Input
-                        value={form.og_desc}
-                        onChange={handleInput}
-                        name="og_desc"
-                        id="og_desc"
-                        type="text"
-                        placeholder="An awesome place on the internet"
-                        maxLength={160}
-                      />
-                    </InputWrapper>
+                    <LabelledInput
+                      value={form.og_desc}
+                      onChange={handleInput}
+                      name="og_desc"
+                      id="og_desc"
+                      type="text"
+                      placeholder="An awesome place on the internet"
+                      maxLength={160}
+                    >
+                      Description
+                    </LabelledInput>
                   </div>
 
                   <div className="sm:flex w-full">
-                    <InputWrapper first>
-                      <Label htmlFor="og_site">Site name</Label>
-                      <Input
-                        value={form.og_site}
-                        onChange={handleInput}
-                        name="og_site"
-                        id="og_site"
-                        type="text"
-                        placeholder="Awesome site"
-                      />
-                    </InputWrapper>
-
-                    <InputWrapper
-                      className={isActiveSubscriber ? '' : 'disabled'}
+                    <LabelledInput
+                      value={form.og_site}
+                      onChange={handleInput}
+                      name="og_site"
+                      id="og_site"
+                      type="text"
+                      placeholder="Awesome site"
+                      first
                     >
-                      <Label htmlFor="og_img_src">Image</Label>
-                      <Input
-                        onChange={handleFileInput}
-                        name="og_img_src"
-                        id="og_img_src"
-                        type="file"
-                        accept="image/png, image/jpeg"
-                        multiple={false}
-                        disabled={!isActiveSubscriber}
-                        disabledTitle="Subscription required"
-                      />
-                    </InputWrapper>
+                      Site name
+                    </LabelledInput>
+
+                    <LabelledInput
+                      onChange={handleFileInput}
+                      name="og_img_src"
+                      id="og_img_src"
+                      type="file"
+                      accept="image/png, image/jpeg"
+                      multiple={false}
+                      disabled={!isActiveSubscriber}
+                      disabledTitle="Subscription required"
+                    >
+                      Image
+                    </LabelledInput>
                   </div>
                 </TabPanel>
                 <TabPanel>
@@ -373,48 +359,44 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                   {!isActiveSubscriber && <SubscriptionNote />}
 
                   <div className="sm:flex w-full">
-                    <InputWrapper first>
-                      <Label htmlFor="google_title">Title</Label>
-                      <Input
-                        value={form.google_title}
-                        onChange={handleInput}
-                        name="google_title"
-                        id="google_title"
-                        type="text"
-                        placeholder="Awesome link"
-                        maxLength={50}
-                      />
-                    </InputWrapper>
+                    <LabelledInput
+                      value={form.google_title}
+                      onChange={handleInput}
+                      name="google_title"
+                      id="google_title"
+                      type="text"
+                      placeholder="Awesome link"
+                      maxLength={50}
+                      first
+                    >
+                      Title
+                    </LabelledInput>
 
-                    <InputWrapper>
-                      <Label htmlFor="google_desc">Description</Label>
-                      <Input
-                        value={form.google_desc}
-                        onChange={handleInput}
-                        name="google_desc"
-                        id="google_desc"
-                        type="text"
-                        placeholder="An awesome place on the internet"
-                        maxLength={160}
-                      />
-                    </InputWrapper>
+                    <LabelledInput
+                      value={form.google_desc}
+                      onChange={handleInput}
+                      name="google_desc"
+                      id="google_desc"
+                      type="text"
+                      placeholder="An awesome place on the internet"
+                      maxLength={160}
+                    >
+                      Description
+                    </LabelledInput>
                   </div>
 
-                  <InputWrapper
-                    className={isActiveSubscriber ? '' : 'disabled'}
+                  <LabelledInput
+                    onChange={handleFileInput}
+                    name="google_img_src"
+                    id="google_img_src"
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    multiple={false}
+                    disabled={!isActiveSubscriber}
+                    disabledTitle="Subscription required"
                   >
-                    <Label htmlFor="google_img_src">Image</Label>
-                    <Input
-                      onChange={handleFileInput}
-                      name="google_img_src"
-                      id="google_img_src"
-                      type="file"
-                      accept="image/png, image/jpeg"
-                      multiple={false}
-                      disabled={!isActiveSubscriber}
-                      disabledTitle="Subscription required"
-                    />
-                  </InputWrapper>
+                    Image
+                  </LabelledInput>
                 </TabPanel>
               </TabPanels>
             </Tabs>

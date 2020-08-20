@@ -1,4 +1,5 @@
 import Alert from '@reach/alert'
+import Link from 'next/link'
 import {useState} from 'react'
 import {useCopyToClipboard} from 'react-use'
 
@@ -156,7 +157,16 @@ const LinkList = ({links = [], stats = false}: Props) => {
         ))}
       </div>
     </>
-  ) : null
+  ) : (
+    <p>
+      Nothing here yet.{' '}
+      <Link href="/#try">
+        <a className="border-gray-900 border-b-2 hover:opacity-50">
+          Create one?
+        </a>
+      </Link>
+    </p>
+  )
 }
 
 export default LinkList

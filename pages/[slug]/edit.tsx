@@ -58,17 +58,17 @@ const defaultLinkData = {
   desc: '', // <160 chars
   og_title: '',
   og_desc: '',
-  og_img_src: 'http://microgradient.herokuapp.com/timpope/200,100.png',
+  og_img_src: '',
   og_site: '',
   twitter_title: '',
   twitter_desc: '', // <200 chars
   twitter_img_alt: '',
-  twitter_img_src: 'http://microgradient.herokuapp.com/timpope/200,100.png', // >280x150
+  twitter_img_src: '', // >280x150
   twitter_site_acc: '',
   twitter_author_acc: '',
   google_title: '',
   google_desc: '',
-  google_img_src: 'http://microgradient.herokuapp.com/timpope/200,100.png',
+  google_img_src: '',
 }
 
 const LinkEditPage = ({link, slug, token}: Props) => {
@@ -190,7 +190,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                   <p className="sr-only">Twitter</p>
 
                   <TwitterPreview
-                    img={form.twitter_img_src}
+                    img={form.twitter_img_src || '/images/gradient.png'}
                     title={form.twitter_title}
                     desc={form.twitter_desc}
                   />
@@ -286,7 +286,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                   <p className="sr-only">Facebook</p>
 
                   <OGPreview
-                    img={form.og_img_src}
+                    img={form.og_img_src || '/images/gradient.png'}
                     title={form.og_title}
                     desc={form.og_desc}
                   />
@@ -351,7 +351,7 @@ const LinkEditPage = ({link, slug, token}: Props) => {
                   <p className="sr-only">Google</p>
 
                   <GooglePreview
-                    img={form.google_img_src}
+                    img={form.google_img_src || '/images/gradient.png'}
                     title={form.google_title}
                     desc={form.google_desc}
                   />

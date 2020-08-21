@@ -113,7 +113,8 @@ const NewLinkForm = () => {
             Generate
           </Button>
         </form>
-        {error && <p className="text-white my-2">{error}</p>}
+
+        {error && <p className="text-red-500 my-2">{error}</p>}
       </div>
 
       {createdLinks?.length > 0 && (

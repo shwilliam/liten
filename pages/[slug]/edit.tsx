@@ -1,6 +1,6 @@
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@reach/tabs'
 import {GetServerSideProps} from 'next'
-import {ChangeEvent, FormEvent, ReactNode, useReducer} from 'react'
+import {ChangeEvent, FormEvent, ReactNode, useReducer, useState} from 'react'
 
 import Button from '../../components/button'
 import LabelledInput from '../../components/labelled-input'
@@ -20,6 +20,7 @@ import {
   removeWebHostString,
   validateHeaderToken,
 } from '../../lib'
+import ToastsList from '../../components/toasts-list'
 
 type Props = {
   link: Link
@@ -72,6 +73,7 @@ const defaultLinkData = {
 }
 
 const LinkEditPage = ({link, slug, token}: Props) => {
+  const [successMessages, setSuccessMessages] = useState<string[]>([])
   const [updateLink, {isLoading}] = useUpdateLink()
   const viewerSubscription = useViewerSubscription()
   const isActiveSubscriber =
@@ -124,7 +126,12 @@ const LinkEditPage = ({link, slug, token}: Props) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     await updateLink({...form, slug})
-    alert('✨')
+    setSuccessMessages(messages =>
+      messages.concat([`/${slug} preview updated`]),
+    )
+    setTimeout(() => {
+      setSuccessMessages(alerts => alerts.slice(1))
+    }, 5000)
   }
 
   return (
@@ -143,6 +150,8 @@ const LinkEditPage = ({link, slug, token}: Props) => {
             </a>
           }
         />
+
+        <ToastsList keyword="Updated" data={successMessages} />
 
         <PageWrapper>
           <form onSubmit={handleSubmit}>
